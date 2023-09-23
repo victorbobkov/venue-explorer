@@ -7,13 +7,71 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>Document</title>
    <link rel="stylesheet" href="css/styles.css">
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+   <script src="https://kit.fontawesome.com/1814d8d91e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   <div>
-      <p>Hi</p>
-      <button class="closeBtn">Close</button>
+   <div class="venue-selection">
+
+      <!-- Header with Types of Venues -->
+      <div class="venue-selection__types">
+         <button class="venue-type">
+            <i class="fa-solid fa-hotel venue-type__icon"></i>
+            Hotel
+         </button>
+         <button class="venue-type">
+            <i class="fa-solid fa-house venue-type__icon"></i>
+            Apartment
+         </button>
+         <button class="venue-type">
+            <i class="fa-solid fa-umbrella-beach venue-type__icon"></i>
+            Resort
+         </button>
+         <button class="venue-type">
+            <i class="fa-solid fa-house-chimney-window venue-type__icon"></i>
+            Cottage
+         </button>
+      </div>
+
+      <!-- Venues List -->
+      <div class="venue-selection__list">
+         <div class="venue" style="background-image: url('images/1.jpg')">
+            <span class="venue__name">Name 1</span>
+            <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
+            <span class="venue__price">$150/night</span>
+            <button class="venue__favorite-btn">
+               <i class="fa-solid fa-heart"></i>
+            </button>
+         </div>
+         <div class="venue" style="background-image: url('images/2.jpg')">
+            <span class="venue__name">Name 2</span>
+            <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
+            <span class="venue__price">$150/night</span>
+            <button class="venue__favorite-btn">
+               <i class="fa-solid fa-heart"></i>
+            </button>
+         </div>
+         <div class="venue" style="background-image: url('images/3.jpg')">
+            <span class="venue__name">Name 3</span>
+            <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
+            <span class="venue__price">$150/night</span>
+            <button class="venue__favorite-btn">
+               <i class="fa-solid fa-heart"></i>
+            </button>
+         </div>
+         <div class="venue" style="background-image: url('images/4.jpg')">
+            <span class="venue__name">Name 4</span>
+            <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
+            <span class="venue__price">$150/night</span>
+            <button class="venue__favorite-btn">
+               <i class="fa-solid fa-heart"></i>
+            </button>
+         </div>
+      </div>
+
    </div>
+
    <script src="js/main.js"></script>
 </body>
 </html>
