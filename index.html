@@ -5,38 +5,39 @@
    <meta name="viewport"
          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Document</title>
+   <title>Venue Explorer Bot</title>
    <link rel="stylesheet" href="css/styles.css">
    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
    <script src="https://telegram.org/js/telegram-web-app.js"></script>
    <script src="https://kit.fontawesome.com/1814d8d91e.js" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
 </head>
 <body>
    <div class="venue-selection">
 
       <!-- Header with Types of Venues -->
       <div class="venue-selection__types">
-         <button class="venue-type">
-            <i class="fa-solid fa-hotel venue-type__icon"></i>
-            Hotel
-         </button>
-         <button class="venue-type">
-            <i class="fa-solid fa-house venue-type__icon"></i>
+         <button class="venue-type" id="apartment-type">
+            <span class="venue-type__icon" id="apartment-icon"></span>
             Apartment
          </button>
-         <button class="venue-type">
-            <i class="fa-solid fa-umbrella-beach venue-type__icon"></i>
+         <button class="venue-type" id="resort-type">
+            <span class="venue-type__icon" id="resort-icon"></span>
             Resort
          </button>
-         <button class="venue-type">
-            <i class="fa-solid fa-house-chimney-window venue-type__icon"></i>
-            Cottage
+         <button class="venue-type" id="camping-type">
+            <span class="venue-type__icon" id="camping-icon"></span>
+            Camping
+         </button>
+         <button class="venue-type" id="amusement-type">
+            <span class="venue-type__icon" id="amusement-icon"></span>
+            Amusement
          </button>
       </div>
 
       <!-- Venues List -->
       <div class="venue-selection__list">
-         <div class="venue" style="background-image: url('images/1.jpg')">
+         <div class="venue" style="background-image: url('images/art1.jpg')">
             <span class="venue__name">Name 1</span>
             <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
             <span class="venue__price">$150/night</span>
@@ -44,7 +45,7 @@
                <i class="fa-solid fa-heart"></i>
             </button>
          </div>
-         <div class="venue" style="background-image: url('images/2.jpg')">
+         <div class="venue" style="background-image: url('images/art2.jpg')">
             <span class="venue__name">Name 2</span>
             <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
             <span class="venue__price">$150/night</span>
@@ -52,7 +53,7 @@
                <i class="fa-solid fa-heart"></i>
             </button>
          </div>
-         <div class="venue" style="background-image: url('images/3.jpg')">
+         <div class="venue" style="background-image: url('images/art3.jpg')">
             <span class="venue__name">Name 3</span>
             <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
             <span class="venue__price">$150/night</span>
@@ -60,7 +61,7 @@
                <i class="fa-solid fa-heart"></i>
             </button>
          </div>
-         <div class="venue" style="background-image: url('images/4.jpg')">
+         <div class="venue" style="background-image: url('images/art4.jpg')">
             <span class="venue__name">Name 4</span>
             <span class="venue__rating"><i class="fa-solid fa-star" style="color: #ff9300;"></i> 4.5</span>
             <span class="venue__price">$150/night</span>
