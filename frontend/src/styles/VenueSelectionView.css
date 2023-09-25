@@ -1,9 +1,3 @@
-/*body {*/
-/*  background: var(--tg-theme-bg-color);*/
-/*  color: var(--tg-theme-text-color);*/
-/*  font-family: 'Open Sans', sans-serif;*/
-/*}*/
-
 .venue-selection {
   padding: 20px;
 }
@@ -13,6 +7,8 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 20px;
+
+  background-color: var(--tg-theme-hint-color);
 }
 
 .venue-type {
@@ -43,6 +39,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  list-style-type: none;
 }
 
 .venue {

@@ -3,11 +3,11 @@ import VenueItem from './VenueItem.jsx';
 
 const VenueList = ({ venues }) => {
   return (
-    <div className="venue-selection__list">
+    <ul className="venue-selection__list">
       {venues.map(venue => (
         <VenueItem key={venue.id} {...venue} />
       ))}
-    </div>
+    </ul>
   );
 };
 

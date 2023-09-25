@@ -2,7 +2,7 @@ import VenueType from '../components/VenueType.jsx';
 import VenueList from '../components/VenueList.jsx';
 import '../styles/VenueSelectionView.css';
 
-
+// Component for rendering venue types and their available venues
 const VenueSelectionView = () => {
   const venueTypes = [
     { type: 'Apartment', iconPath: '/assets/lotties/House.json' },
@@ -18,6 +18,7 @@ const VenueSelectionView = () => {
     { id: 4, name: 'Name 4', rating: 4.5, price: '$150', imageUrl: '/assets/images/art4.jpg' },
   ];
 
+  // Handles venue type selections
   const handleTypeClick = (type) => {
     console.log('Venue Type Clicked:', type);
   };

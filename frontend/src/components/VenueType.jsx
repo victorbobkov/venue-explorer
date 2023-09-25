@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import lottie from 'lottie-web';
 import PropTypes from 'prop-types';
 
+// Component for displaying and animating venue types
 const VenueType = ({ type, iconPath, onTypeClick }) => {
   const iconRef = useRef();
   const [animationInstance, setAnimationInstance] = useState(null);
 
+  // Load Lottie animation on mount and clean up on unmount
   useEffect(() => {
     const animation = lottie.loadAnimation({
       container: iconRef.current,
@@ -22,9 +24,12 @@ const VenueType = ({ type, iconPath, onTypeClick }) => {
     };
   }, [iconPath]);
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    event.preventDefault();
     onTypeClick(type);
-    if(animationInstance) animationInstance.play();
+    if (animationInstance) {
+      animationInstance.goToAndPlay(0, true);
+    }
   };
 
   return (
