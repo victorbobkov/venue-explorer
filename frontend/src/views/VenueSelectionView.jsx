@@ -12,10 +12,10 @@ const VenueSelectionView = () => {
   ];
 
   const venues = [
-    { id: 1, name: 'Name 1', rating: 4.5, price: '$150', imageUrl: '/assets/images/art1.jpg' },
-    { id: 2, name: 'Name 2', rating: 4.5, price: '$150', imageUrl: '/assets/images/art2.jpg' },
-    { id: 3, name: 'Name 3', rating: 4.5, price: '$150', imageUrl: '/assets/images/art3.jpg' },
-    { id: 4, name: 'Name 4', rating: 4.5, price: '$150', imageUrl: '/assets/images/art4.jpg' },
+    { id: 1, name: 'Name 1', type: 'Apartment', rating: 4.5, price: '$150', imageUrl: '/assets/images/art1.jpg' },
+    { id: 2, name: 'Name 2', type: 'Resort', rating: 4.5, price: '$150', imageUrl: '/assets/images/art2.jpg' },
+    { id: 3, name: 'Name 3', type: 'Camping', rating: 4.5, price: '$150', imageUrl: '/assets/images/art3.jpg' },
+    { id: 4, name: 'Name 4', type: 'Amusement', rating: 4.5, price: '$150', imageUrl: '/assets/images/art4.jpg' },
   ];
 
   // Handles venue type selections

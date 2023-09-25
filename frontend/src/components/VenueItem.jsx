@@ -1,14 +1,24 @@
+import LottieIcon from './LottieIcon.jsx';
 import PropTypes from 'prop-types';
 
-const VenueItem = ({ name, rating, price, imageUrl }) => {
+const VenueItem = ({ name, type, rating, price, imageUrl }) => {
+  const handleFavoriteClick = () => {
+    console.log(`${name} is favorited!`)
+  }
 
   return (
-    <li className="venue" style={{ backgroundImage: `url('${imageUrl}')` }}>
-      <img src={imageUrl} alt={`${name} venue`} hidden />
-      <span className="venue__name">{name}</span>
-      <span className="venue__rating">{rating}</span>
-      <span className="venue__price">{price}/night</span>
-      <button className="venue__favorite-btn" role="button" aria-label="Add to favorite">♥</button>
+    <li className="venue">
+      <img src={imageUrl} alt={`${name} venue`} className="venue__image" />
+      <div className="venue__details">
+        <span className="venue__details--name">{name}</span>
+        <span className="venue__details--type">{type}</span>
+        <span className="venue__details--rating">{rating}</span>
+        <span className="venue__details--price">{price}/night</span>
+      </div>
+      {/*<button className="venue__favorite-btn" role="button" aria-label="Add to favorite">*/}
+      {/*  ♥*/}
+      {/*</button>*/}
+      <LottieIcon iconPath="/assets/lotties/Heart.json" onIconClick={handleFavoriteClick} />
     </li>
   );
 };
@@ -18,6 +28,7 @@ VenueItem.propTypes = {
   rating: PropTypes.number.isRequired,
   price: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default VenueItem;

@@ -8,7 +8,8 @@
   width: 100%;
   margin-bottom: 20px;
 
-  background-color: var(--tg-theme-hint-color);
+  background-color: #2b2b2b;
+  border-radius: 15px;
 }
 
 .venue-type {
@@ -30,10 +31,6 @@
   cursor: pointer;
 }
 
-/*.venue-type:hover {*/
-/*  background-color: #333;*/
-/*}*/
-
 .venue-selection__list {
   display: flex;
   flex-direction: column;
@@ -43,49 +40,58 @@
 }
 
 .venue {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   position: relative;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
   border-radius: 15px;
   overflow: hidden;
+
+  /*background-color: gray;*/
 }
 
-.venue__name, .venue__rating {
-  position: absolute;
-  left: 10px;
-  color: #fff;
+.venue__image {
+  flex-shrink: 0;
+  height: 100px;
+  object-fit: cover;
+  /*width: 300px;*/
+  width: 40%;
+  border-radius: 15px;
+}
+
+.venue__details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.venue__details--name, .venue__details--rating, .venue__details--price {
+  color: var(--tg-theme-text-color);
   font-weight: bold;
 }
 
-.venue__name {
-  bottom: 10px;
-}
+/*.venue__favorite-btn {*/
+/*  margin-left: auto;*/
+/*  background: transparent;*/
+/*  border: none;*/
+/*  color: #fff;*/
+/*  cursor: pointer;*/
+/*  font-size: 1.5rem;*/
+/*  transition: color 0.3s;*/
+/*}*/
 
-.venue__rating {
-  bottom: 30px;
-}
+/*.venue__favorite-btn:hover {*/
+/*  color: red;*/
+/*}*/
 
-.venue__price {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  color: #fff;
-  font-weight: bold;
-}
-
-.venue__favorite-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+.lottie-icon {
   background: transparent;
   border: none;
-  color: #fff;
   cursor: pointer;
-  font-size: 1.5rem;
-  transition: color 0.3s;
 }
 
-.venue__favorite-btn:hover {
-  color: red;
+.lottie-icon__animation {
+  display: block;
+  width: 50px;
+  height: 50px;
 }
