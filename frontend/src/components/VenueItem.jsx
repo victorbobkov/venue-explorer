@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 const VenueItem = ({ name, rating, price, imageUrl}) => {
+  // test
   return (
     <div>
       <div className="venue" style={{ backgroundImage: `url('${imageUrl}')` }}>
