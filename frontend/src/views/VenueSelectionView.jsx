@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VenueType from '../components/VenueType.jsx';
 import VenueList from '../components/VenueList.jsx';
 import '../styles/VenueSelectionView.css';
+
+const tg = window.Telegram.WebApp;
 
 // Component for rendering venue types and their available venues
 const VenueSelectionView = () => {
@@ -21,8 +23,29 @@ const VenueSelectionView = () => {
 
   const [selectedType, setSelectedType] = useState('');
 
+  // Set Main Button text and show it when a type is clicked
+  useEffect(() => {
+    const handleMainButtonClick = () => {
+      setSelectedType('');
+      tg.MainButton.hide();
+    }
+
+    tg.MainButton.onClick(handleMainButtonClick);
+
+    return () => {
+      tg.MainButton.offClick(handleMainButtonClick);
+    }
+  }, []);
+
   const handleTypeClick = (type) => {
-    setSelectedType(type);
+    if (selectedType === type) {
+      setSelectedType('');
+      tg.MainButton.hide();
+    } else {
+      setSelectedType(type);
+      tg.MainButton.show();
+      tg.MainButton.setParams({ text: 'Show All' });
+    }
   };
 
   const displayedVenues = selectedType
@@ -33,7 +56,12 @@ const VenueSelectionView = () => {
     <section className="venue-selection">
       <div className="venue-selection__types">
         {venueTypes.map((type) => (
-          <VenueType key={type.type} {...type} onTypeClick={() => handleTypeClick(type.type)} />
+          <VenueType
+            key={type.type}
+            {...type}
+            onTypeClick={() => handleTypeClick(type.type)}
+            isActive={selectedType === type.type}
+          />
         ))}
       </div>
       <VenueList venues={displayedVenues} />

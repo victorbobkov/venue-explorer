@@ -3,7 +3,7 @@ import lottie from 'lottie-web';
 import PropTypes from 'prop-types';
 
 // Component for displaying and animating venue types
-const VenueType = ({ type, iconPath, onTypeClick }) => {
+const VenueType = ({ type, iconPath, onTypeClick, isActive }) => {
   const iconRef = useRef();
   const [animationInstance, setAnimationInstance] = useState(null);
 
@@ -33,7 +33,7 @@ const VenueType = ({ type, iconPath, onTypeClick }) => {
   };
 
   return (
-    <button className="venue-type" onClick={handleClick}>
+    <button className={`venue-type ${isActive ? 'active' : ''}`} onClick={handleClick}>
       <span className="venue-type__icon" ref={iconRef}></span>
       {type}
     </button>
@@ -44,6 +44,7 @@ VenueType.propTypes = {
   type: PropTypes.string.isRequired,
   iconPath: PropTypes.string.isRequired,
   onTypeClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };
 
 export default VenueType;
