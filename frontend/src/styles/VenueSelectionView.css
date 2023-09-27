@@ -17,12 +17,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
   background-color: var(--tg-theme-btn-color);
   color: var(--tg-theme-text-color);
   padding: 10px 10px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: var(--default-font);
 }
 
 .venue-type.active {
@@ -55,6 +57,12 @@
   background-color: var(--tg-theme-bg-color);
   padding: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.venue__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .venue__top {
@@ -96,6 +104,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin: 10px 0 0 0;
 }
 
 .venue__metadata {
