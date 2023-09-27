@@ -1,29 +1,29 @@
-const tg = window.Telegram.WebApp;
+const WebApp = window.Telegram.WebApp;
 
 const useTelegram = () => {
   const onClose = () => {
-    tg.close();
+    WebApp.close();
   }
 
   const onToggleButton = () => {
-    if (tg.MainButton.isVisible) {
-      tg.MainButton.hide();
+    if (WebApp.MainButton.isVisible) {
+      WebApp.MainButton.hide();
     } else {
-      tg.MainButton.show();
+      WebApp.MainButton.show();
     }
   }
 
   const onToggleBackButton = () => {
-    if (tg.BackButton.isVisible) {
-      tg.BackButton.hide();
+    if (WebApp.BackButton.isVisible) {
+      WebApp.BackButton.hide();
     } else {
-      tg.MainButton.show();
+      WebApp.MainButton.show();
     }
   }
 
   return {
-    tg,
-    user: tg.initDataUnsafe?.user,
+    WebApp,
+    user: WebApp.initDataUnsafe?.user,
     onClose,
     onToggleButton,
     onToggleBackButton,

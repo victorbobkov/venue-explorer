@@ -5,12 +5,13 @@ import VenueSelectionView from './views/VenueSelectionView.jsx';
 import VenueDetailsView from './views/VenueDetailsView.jsx';
 
 function App() {
-  const { tg } = useTelegram();
+  const { WebApp } = useTelegram();
 
   // A method that informs the Telegram app that the Mini App is ready to be displayed
   useEffect(() => {
-    tg.ready();
-  }, [tg])
+    WebApp.ready();
+    console.log(WebApp.version);
+  }, [WebApp])
 
   return (
     <div className="App">

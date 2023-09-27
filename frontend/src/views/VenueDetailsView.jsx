@@ -6,13 +6,13 @@ import '../styles/VenueDetailsView.css';
 
 const VenueDetailsView = () => {
   const { id } = useParams();
-  const { tg, onToggleBackButton } = useTelegram();
+  const { WebApp, onToggleBackButton } = useTelegram();
   const venue = venues.find((v) => v.id.toString() === id) || {};
   const navigate = useNavigate();
 
   useEffect(() => {
-    tg.MainButton.show();
-    tg.MainButton.setParams({ text: 'BOOK NOW' });
+    WebApp.MainButton.show();
+    WebApp.MainButton.setParams({ text: 'BOOK NOW' });
 
     const handleMainButtonClick = () => {
       console.log('Main Button Clicked!');
@@ -23,18 +23,18 @@ const VenueDetailsView = () => {
       navigate('/');
     }
 
-    tg.MainButton.onClick(handleMainButtonClick);
-    tg.BackButton.onClick(handleBackButtonClick);
+    WebApp.MainButton.onClick(handleMainButtonClick);
+    WebApp.BackButton.onClick(handleBackButtonClick);
     onToggleBackButton();
 
     return () => {
       // Clean up
-      tg.MainButton.hide();
-      tg.MainButton.offClick(handleMainButtonClick);
-      tg.BackButton.offClick(handleBackButtonClick);
+      WebApp.MainButton.hide();
+      WebApp.MainButton.offClick(handleMainButtonClick);
+      WebApp.BackButton.offClick(handleBackButtonClick);
       onToggleBackButton();
     }
-  }, [tg, onToggleBackButton, navigate]);
+  }, [WebApp, onToggleBackButton, navigate]);
 
   return (
     <section className="venue-details">

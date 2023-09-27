@@ -7,7 +7,7 @@ import '../styles/VenueSelectionView.css';
 
 // Component for rendering venue types and their available venues
 const VenueSelectionView = () => {
-  const { tg, onToggleButton } = useTelegram();
+  const { WebApp, onToggleButton } = useTelegram();
   const [selectedType, setSelectedType] = useState('');
 
   // Set Main Button text and show it when a type is clicked
@@ -18,12 +18,12 @@ const VenueSelectionView = () => {
       onToggleButton();
     }
 
-    tg.MainButton.onClick(handleMainButtonClick);
+    WebApp.MainButton.onClick(handleMainButtonClick);
 
     return () => {
-      tg.MainButton.offClick(handleMainButtonClick);
+      WebApp.MainButton.offClick(handleMainButtonClick);
     }
-  }, [tg, onToggleButton]);
+  }, [WebApp, onToggleButton]);
 
   const handleTypeClick = (type) => {
     if (selectedType === type) {
@@ -32,8 +32,8 @@ const VenueSelectionView = () => {
       onToggleButton();
     } else {
       setSelectedType(type);
-      tg.MainButton.show();
-      tg.MainButton.setParams({ text: 'SHOW ALL' });
+      WebApp.MainButton.show();
+      WebApp.MainButton.setParams({ text: 'SHOW ALL' });
     }
   };
 
