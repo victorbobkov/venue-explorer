@@ -194,3 +194,11 @@
   width: 50px;
   height: 50px;
 }
+
+.venue-list {
+  transition: all 0.3s ease-in-out;
+}
+.venue-list.sorted {
+  opacity: 0;
+  transform: translateY(20px);
+}

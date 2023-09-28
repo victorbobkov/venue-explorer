@@ -50,7 +50,7 @@ todo
 - Hosting: [Vercel]
 
 ### Contributing
-Whether it's improving code quality, adding new features, or reporting bugs, contributions to this project are welcome and appreciated.
+Whether it's improving code quality, adding new features, or reporting bugs, contributions to this project are welcomed and appreciated.
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
