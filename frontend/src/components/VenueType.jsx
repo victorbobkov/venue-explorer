@@ -7,12 +7,12 @@ const VenueType = ({ type, iconPath, onTypeClick, isActive }) => {
   const iconRef = useRef();
   const [animationInstance, setAnimationInstance] = useState(null);
 
-  // Load Lottie animation on mount and clean up on unmount
+  // Load Lottie animation when the component mounts and clean up the animation instance when the component unmounts
   useEffect(() => {
     const animation = lottie.loadAnimation({
       container: iconRef.current,
       path: iconPath,
-      renderer: 'svg',
+      renderer: 'canvas',
       loop: false,
       autoplay: false,
     });
@@ -24,6 +24,8 @@ const VenueType = ({ type, iconPath, onTypeClick, isActive }) => {
     };
   }, [iconPath]);
 
+  // Handle click event on the component, trigger the attached animation
+  // and invoke the provided onTypeClick handler with the type as an argument
   const handleClick = (event) => {
     event.preventDefault();
     onTypeClick(type);
@@ -33,7 +35,13 @@ const VenueType = ({ type, iconPath, onTypeClick, isActive }) => {
   };
 
   return (
-    <button className={`venue-type ${isActive ? 'active' : ''}`} onClick={handleClick}>
+    <button
+      className={`venue-type ${isActive ? 'active' : ''}`}
+      onClick={handleClick}
+      role="button"
+      aria-label={`Select ${type} venue type`}
+      aria-pressed={isActive}
+    >
       <span className="venue-type__icon" ref={iconRef}></span>
       {type}
     </button>

@@ -5,10 +5,15 @@ const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
 
   return (
     <li className="venue">
-      <Link to={`/details/${id}`} className="venue__link">
+      <Link to={`/details/${id}`} className="venue__link" aria-label={`Link to ${name} details`}>
         <div className="venue__top">
           <img src={imageUrl} alt={`${name} venue`} className="venue__image" />
-          <button className="venue__favorite-btn" role="button" aria-label="Add to favorite">♥</button>
+          <button
+            className="venue__favorite-btn"
+            role="button"
+            aria-label="Add to favorite"
+            aria-pressed="false" // todo update this property based on the state once adding interactivity
+          >♥</button>
         </div>
         <div className="venue__details">
           <div className="venue__name-price">

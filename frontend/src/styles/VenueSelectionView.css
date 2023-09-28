@@ -1,3 +1,4 @@
+/* Header */
 .venue-selection {
   padding: 20px;
   background-color: var(--tg-theme-secondary-bg-color);
@@ -28,8 +29,6 @@
 }
 
 .venue-type.active {
-  /*box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);*/
-  /*border-radius: 10px;*/
   font-weight: bold;
 }
 
@@ -40,9 +39,32 @@
   cursor: pointer;
 }
 
+@media (max-width: 375px) {
+  .venue-selection {
+    padding: 10px;
+  }
+
+  .venue-selection__types {
+    margin-bottom: 10px;
+  }
+
+  .venue-type__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .venue-type {
+    font-size: 12px;
+    padding: 5px 5px;
+  }
+}
+
+/* List of venue cards */
 .venue-selection__list {
-  display: flex;
-  flex-direction: column;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
   width: 100%;
   list-style-type: none;
@@ -131,6 +153,36 @@
   line-height: 1.5;
 }
 
+@media (max-width: 375px) {
+  .venue__details--name {
+    font-size: 16px;
+  }
+
+  .venue__details--price, .venue__details--type, .venue__details--rating {
+    font-size: 12px;
+  }
+
+  .venue__favorite-btn {
+    font-size: 1rem;
+  }
+
+  .venue__image {
+    height: 100px;
+  }
+
+  .venue__link {
+    padding: 5px;
+  }
+}
+
+@media (min-width: 600px) {
+  .venue-selection__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Lottie animations */
 .lottie-icon {
   background: transparent;
   border: none;

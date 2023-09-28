@@ -14,7 +14,6 @@ const VenueSelectionView = () => {
   useEffect(() => {
     const handleMainButtonClick = () => {
       setSelectedType('');
-      // tg.MainButton.hide();
       onToggleButton();
     }
 
@@ -28,7 +27,6 @@ const VenueSelectionView = () => {
   const handleTypeClick = (type) => {
     if (selectedType === type) {
       setSelectedType('');
-      // tg.MainButton.hide();
       onToggleButton();
     } else {
       setSelectedType(type);

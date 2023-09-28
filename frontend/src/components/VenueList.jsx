@@ -4,9 +4,9 @@ import VenueItem from './VenueItem.jsx';
 const VenueList = ({ venues }) => {
   return (
     <ul className="venue-selection__list">
-      {venues.map(venue => (
-        <VenueItem key={venue.id} {...venue} />
-      ))}
+        {venues.map(venue => (
+          <VenueItem key={venue.id} {...venue} />
+        ))}
     </ul>
   );
 };
