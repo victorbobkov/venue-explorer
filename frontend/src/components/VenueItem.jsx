@@ -21,8 +21,8 @@ const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
             <span className="venue__details--price">{price}/night</span>
           </div>
           <div className="venue__metadata">
+            <span className="venue__details--rating">⭐ {rating} •</span>
             <span className="venue__details--type">{type}</span>
-            <span className="venue__details--rating">{rating}</span>
           </div>
         </div>
       </Link>

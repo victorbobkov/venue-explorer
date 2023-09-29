@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 import useTelegram from '../hooks/useTelegram.js';
 import CustomDatePicker from '../components/CustomDatePicker.jsx';
+import ScrollableContainer from '../components/ScrollableContainer.jsx';
 import { venues } from '../constants/index.js';
 import '../styles/VenueDetailsView.css';
-import { format } from 'date-fns';
 
 // Component rendering detailed information about a specific venue
 const VenueDetailsView = () => {
@@ -16,6 +17,7 @@ const VenueDetailsView = () => {
 
   useEffect(() => {
     WebApp.MainButton.show();
+    WebApp.BackButton.show();
     WebApp.MainButton.setParams({ text: 'BOOK NOW' });
 
     const handleMainButtonClick = () => {
@@ -58,13 +60,13 @@ const VenueDetailsView = () => {
           <span className="venue-details__type">{venue.type} •</span>
           <span className="venue-details__price">{venue.price}/night</span>
         </div>
-        <div className="venue-details__amenities">
+        <ScrollableContainer>
           {
             venue.amenities && venue.amenities.map((amenity, index) => (
               <span key={index} className="venue-details__amenity">{amenity}</span>
             ))
           }
-        </div>
+        </ScrollableContainer>
         <p className="venue-details__description">{venue.description}</p>
         <CustomDatePicker
           isSingleDate={venue.type === 'Amusement'}
