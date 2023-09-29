@@ -10,15 +10,15 @@ import '../styles/VenueDetailsView.css';
 // Component rendering detailed information about a specific venue
 const VenueDetailsView = () => {
   const { id } = useParams();
-  const { WebApp, onToggleBackButton } = useTelegram();
+  const { WebApp } = useTelegram();
   const navigate = useNavigate();
 
   const venue = venues.find((v) => v.id.toString() === id) || {};
 
   useEffect(() => {
     WebApp.MainButton.show();
-    WebApp.BackButton.show();
     WebApp.MainButton.setParams({ text: 'BOOK NOW' });
+    WebApp.BackButton.show();
 
     const handleMainButtonClick = () => {
       //todo Perform booking
@@ -31,16 +31,14 @@ const VenueDetailsView = () => {
 
     WebApp.MainButton.onClick(handleMainButtonClick);
     WebApp.BackButton.onClick(handleBackButtonClick);
-    onToggleBackButton();
 
     return () => {
       // Clean up
       WebApp.MainButton.hide();
       WebApp.MainButton.offClick(handleMainButtonClick);
       WebApp.BackButton.offClick(handleBackButtonClick);
-      onToggleBackButton();
     }
-  }, [WebApp, onToggleBackButton, navigate]);
+  }, [WebApp, navigate]);
 
   const handleDateChange = (date) => {
     console.log('Selected date: ', format(date, 'yyyy-MM-dd'))
