@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useTelegram from '../hooks/useTelegram.js';
+import CustomDatePicker from '../components/CustomDatePicker.jsx';
 import { venues } from '../constants/index.js';
 import '../styles/VenueDetailsView.css';
+import { format } from 'date-fns';
 
 // Component rendering detailed information about a specific venue
 const VenueDetailsView = () => {
@@ -38,6 +40,14 @@ const VenueDetailsView = () => {
     }
   }, [WebApp, onToggleBackButton, navigate]);
 
+  const handleDateChange = (date) => {
+    console.log('Selected date: ', format(date, 'yyyy-MM-dd'))
+  }
+
+  const handleDateRangeChange = ({ startDate, endDate }) => {
+    console.log('Selected date range: ', format(startDate, 'yyyy-MM-dd'), 'to', format(endDate, 'yyyy-MM-dd'));
+  }
+
   return (
     <section className="venue-details">
       <img src={venue.imageUrl} alt={`${venue.name} venue`} className="venue-details__image" />
@@ -56,9 +66,11 @@ const VenueDetailsView = () => {
           }
         </div>
         <p className="venue-details__description">{venue.description}</p>
-        <div className="venue-details__booking">
-          {/* date picker */}
-        </div>
+        <CustomDatePicker
+          isSingleDate={venue.type === 'Amusement'}
+          onDateChange={handleDateChange}
+          onDateRangeChange={handleDateRangeChange}
+        />
       </div>
     </section>
   );
