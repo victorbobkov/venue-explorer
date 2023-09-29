@@ -17,7 +17,7 @@ const useTelegram = () => {
     if (WebApp.BackButton.isVisible) {
       WebApp.BackButton.hide();
     } else {
-      WebApp.MainButton.show();
+      WebApp.BackButton.show();
     }
   }
 
