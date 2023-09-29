@@ -24,7 +24,7 @@ module.exports = {
       ref: 'origin/main',
       repo: 'https://github.com/victorbobkov/venue-explorer.git',
       path: '/opt/ve-server',
-      'post-deploy': 'cd source/server && npm install && pm2 startOrReload ../../ecosystem.config.js',
+      'post-deploy': 'npm install && pm2 startOrReload ecosystem.config.js',
     },
   },
 };

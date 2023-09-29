@@ -4,19 +4,21 @@ import useTelegram from '../hooks/useTelegram.js';
 import { venues } from '../constants/index.js';
 import '../styles/VenueDetailsView.css';
 
+// Component rendering detailed information about a specific venue
 const VenueDetailsView = () => {
   const { id } = useParams();
   const { WebApp, onToggleBackButton } = useTelegram();
-  const venue = venues.find((v) => v.id.toString() === id) || {};
   const navigate = useNavigate();
+
+  const venue = venues.find((v) => v.id.toString() === id) || {};
 
   useEffect(() => {
     WebApp.MainButton.show();
     WebApp.MainButton.setParams({ text: 'BOOK NOW' });
 
     const handleMainButtonClick = () => {
-      console.log('Main Button Clicked!');
       //todo Perform booking
+      console.log('Main Button Clicked!');
     }
 
     const handleBackButtonClick = () => {
@@ -41,10 +43,22 @@ const VenueDetailsView = () => {
       <img src={venue.imageUrl} alt={`${venue.name} venue`} className="venue-details__image" />
       <div className="venue-details__info">
         <h1 className="venue-details__name">{venue.name}</h1>
-        <span className="venue-details__type">{venue.type}</span>
-        <span className="venue-details__rating">{venue.rating}</span>
-        <span className="venue-details__price">{venue.price}/night</span>
+        <div className="venue-details__metadata">
+          <span className="venue-details__rating">⭐ {venue.rating} •</span>
+          <span className="venue-details__type">{venue.type} •</span>
+          <span className="venue-details__price">{venue.price}/night</span>
+        </div>
+        <div className="venue-details__amenities">
+          {
+            venue.amenities && venue.amenities.map((amenity, index) => (
+              <span key={index} className="venue-details__amenity">{amenity}</span>
+            ))
+          }
+        </div>
         <p className="venue-details__description">{venue.description}</p>
+        <div className="venue-details__booking">
+          {/* date picker */}
+        </div>
       </div>
     </section>
   );
