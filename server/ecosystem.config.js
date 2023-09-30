@@ -23,8 +23,8 @@ module.exports = {
       host: '157.245.69.81',
       ref: 'origin/main',
       repo: 'https://github.com/victorbobkov/venue-explorer.git',
-      path: '/opt/ve-server',
-      'post-deploy': 'cd source/server && npm install && pm2 startOrReload ../../ecosystem.config.js',
+      path: '/opt/ve-server/source',
+      'post-deploy': 'cd server && npm install && pm2 startOrReload ../ecosystem.config.js',
     },
   },
 };
