@@ -7,14 +7,14 @@ import '../styles/VenueSelectionView.css';
 
 // Component for rendering venue types and their available venues
 const VenueSelectionView = () => {
-  const { WebApp, onToggleButton } = useTelegram();
+  const { WebApp, onToggleMainButton } = useTelegram();
   const [selectedType, setSelectedType] = useState('');
 
   // Set Main Button text and show it when a type is clicked
   useEffect(() => {
     const handleMainButtonClick = () => {
       setSelectedType('');
-      onToggleButton();
+      onToggleMainButton();
     }
 
     WebApp.MainButton.onClick(handleMainButtonClick);
@@ -22,12 +22,12 @@ const VenueSelectionView = () => {
     return () => {
       WebApp.MainButton.offClick(handleMainButtonClick);
     }
-  }, [WebApp, onToggleButton]);
+  }, [WebApp, onToggleMainButton]);
 
   const handleTypeClick = (type) => {
     if (selectedType === type) {
       setSelectedType('');
-      onToggleButton();
+      onToggleMainButton();
     } else {
       setSelectedType(type);
       WebApp.MainButton.show();

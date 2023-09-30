@@ -35,6 +35,7 @@ const VenueDetailsView = () => {
     return () => {
       // Clean up
       WebApp.MainButton.hide();
+      WebApp.BackButton.hide();
       WebApp.MainButton.offClick(handleMainButtonClick);
       WebApp.BackButton.offClick(handleBackButtonClick);
     }

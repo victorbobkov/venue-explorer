@@ -25,7 +25,7 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange }) => 
   return (
     <div className="venue-details__booking">
       <label className="venue-details__label">
-        {isSingleDate ? 'Choose Date:' : 'Start date'}
+        {isSingleDate ? 'Choose Date:' : 'Start date:'}
         <input
           className="venue-details__input"
           type="date"

@@ -5,7 +5,7 @@ const useTelegram = () => {
     WebApp.close();
   }
 
-  const onToggleButton = () => {
+  const onToggleMainButton = () => {
     if (WebApp.MainButton.isVisible) {
       WebApp.MainButton.hide();
     } else {
@@ -25,7 +25,7 @@ const useTelegram = () => {
     WebApp,
     user: WebApp.initDataUnsafe?.user,
     onClose,
-    onToggleButton,
+    onToggleMainButton,
     onToggleBackButton,
   }
 };
