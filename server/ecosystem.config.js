@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 've-server',
-      script: './server/index.js',
+      script: './source/server/index.js',
       instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
@@ -24,7 +24,7 @@ module.exports = {
       ref: 'origin/main',
       repo: 'https://github.com/victorbobkov/venue-explorer.git',
       path: '/opt/ve-server',
-      'post-deploy': 'cd server && npm install && pm2 startOrReload ecosystem.config.js',
+      'post-deploy': 'cd source/server && npm install && pm2 startOrReload ../../ecosystem.config.js',
     },
   },
 };
