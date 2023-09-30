@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 've-server',
-      script: './source/server/index.js',
+      script: './server/index.js',
       instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
