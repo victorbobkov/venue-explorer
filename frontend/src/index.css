@@ -13,4 +13,13 @@ body {
   background: var(--tg-theme-secondary-bg-color);
   color: var(--tg-theme-text-color);
   font-family: var(--default-font);
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  scrollbar-width: none;
 }

@@ -17,7 +17,7 @@ const VenueDetailsView = () => {
 
   useEffect(() => {
     WebApp.MainButton.show();
-    WebApp.MainButton.setParams({ text: 'BOOK NOW' });
+    WebApp.MainButton.setParams({ text: 'RESERVE' });
     WebApp.BackButton.show();
 
     const handleMainButtonClick = () => {
@@ -57,7 +57,9 @@ const VenueDetailsView = () => {
         <div className="venue-details__metadata">
           <span className="venue-details__rating">⭐ {venue.rating} •</span>
           <span className="venue-details__type">{venue.type} •</span>
-          <span className="venue-details__price">{venue.price}/night</span>
+          <span className="venue-details__price">
+            {venue.price}{venue.type === 'Amusement' ? '/visit' : '/night'}
+          </span>
         </div>
         <ScrollableContainer>
           {

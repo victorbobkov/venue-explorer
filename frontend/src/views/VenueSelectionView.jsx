@@ -10,6 +10,8 @@ const VenueSelectionView = () => {
   const { WebApp, onToggleMainButton } = useTelegram();
   const [selectedType, setSelectedType] = useState('');
 
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+
   // Set Main Button text and show it when a type is clicked
   useEffect(() => {
     const handleMainButtonClick = () => {
@@ -28,10 +30,12 @@ const VenueSelectionView = () => {
     if (selectedType === type) {
       setSelectedType('');
       onToggleMainButton();
+      setShouldAnimate(false);
     } else {
-      setSelectedType(type);
+      setSelectedType(type)
       WebApp.MainButton.show();
       WebApp.MainButton.setParams({ text: 'SHOW ALL' });
+      setShouldAnimate(true);
     }
   };
 
@@ -48,6 +52,7 @@ const VenueSelectionView = () => {
             {...type}
             onTypeClick={() => handleTypeClick(type.type)}
             isActive={selectedType === type.type}
+            shouldAnimate={shouldAnimate && selectedType === type.type}
           />
         ))}
       </div>

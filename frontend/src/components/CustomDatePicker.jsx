@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { format, parse } from 'date-fns';
+import { format, parse, add } from 'date-fns';
 import PropTypes from 'prop-types';
 
 const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange }) => {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const today = new Date();
+  const tomorrow = add(today, { days: 1 });
+
+  const [startDate, setStartDate] = useState(format(today, 'yyyy-MM-dd'));
+  const [endDate, setEndDate] = useState(format(tomorrow, 'yyyy-MM-dd'));
 
   const handleStartDateChange = (e) => {
     const dateStr = e.target.value;
@@ -30,7 +32,7 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange }) => 
           className="venue-details__input"
           type="date"
           value={startDate}
-          min={today}
+          min={format(today, 'yyyy-MM-dd')}
           onChange={handleStartDateChange}
         />
       </label>
@@ -41,7 +43,7 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange }) => 
             className="venue-details__input"
             type="date"
             value={endDate}
-            min={startDate || today}
+            min={format(tomorrow, 'yyyy-MM-dd')}
             onChange={handleEndDateChange}
           />
         </label>

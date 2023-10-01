@@ -1,14 +1,15 @@
 .venue-details {
   display: flex;
   flex-direction: column;
+  margin: auto;
   padding: 20px;
   min-height: 100vh;
+  max-width: 700px;
   background-color: var(--tg-theme-bg-color);
 }
 
 .venue-details__image {
   width: 100%;
-  max-width: 400px;
   max-height: 200px;
   object-fit: cover;
   border-radius: 15px;
@@ -68,8 +69,8 @@
 .venue-details__type,
 .venue-details__rating,
 .venue-details__price {
-  font-weight: 300;
-  /*font-weight: normal;*/
+  /*font-weight: 300;*/
+  font-weight: normal;
   margin: 0 3px 0 0;
   color: var(--tg-theme-text-color);
 }
