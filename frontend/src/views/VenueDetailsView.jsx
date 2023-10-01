@@ -21,8 +21,7 @@ const VenueDetailsView = () => {
     WebApp.BackButton.show();
 
     const handleMainButtonClick = () => {
-      //todo Perform booking
-      console.log('Main Button Clicked!');
+      navigate('/booking-confirmation/${id}');
     }
 
     const handleBackButtonClick = () => {

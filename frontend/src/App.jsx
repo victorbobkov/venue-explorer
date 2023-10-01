@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useTelegram from './hooks/useTelegram.js';
 import VenueSelectionView from './views/VenueSelectionView.jsx';
 import VenueDetailsView from './views/VenueDetailsView.jsx';
+import BookingConfirmationView from './views/BookingConfirmationView.jsx';
 
 function App() {
   const { WebApp } = useTelegram();
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<VenueSelectionView />}/>
           <Route path="/details/:id" element={<VenueDetailsView />}/>
+          <Route path="/booking-confirmation/:id" element={<BookingConfirmationView />}/>
         </Routes>
       </BrowserRouter>
     </div>
