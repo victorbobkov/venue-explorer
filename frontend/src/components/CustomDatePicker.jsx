@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { format, parse, add } from 'date-fns';
 import PropTypes from 'prop-types';
 
+// Component renders date pickers, single date for venue type 'Amusement' and date range for another types
 const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange }) => {
   const today = new Date();
   const tomorrow = add(today, { days: 1 });

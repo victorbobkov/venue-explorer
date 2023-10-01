@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import VenueItem from './VenueItem.jsx';
 
 const VenueList = ({ venues }) => {
+
   return (
     <ul className="venue-selection__list">
         {venues.map(venue => (

@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// This component provides a horizontally scrollable container which can be scrolled by dragging
-// It's designed to house elements such as tags or labels that are displayed inline but may overflow the container's width
+// Component renders a horizontally scrollable container for elements such as tags or labels
 const ScrollableContainer = ({ children }) => {
   const containerRef = useRef(null);
 

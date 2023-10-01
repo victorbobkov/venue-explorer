@@ -9,7 +9,7 @@ const LottieAnimation = ({ path, playAnimation }) => {
   // Load Lottie animation when the component mounts and clean up the animation instance when the component unmounts
   useEffect(() => {
     const animation = lottie.loadAnimation({
-      container: animationRef.current,
+      container: animationRef.current ?? undefined,
       path: path,
       renderer: 'canvas',
       loop: false,
@@ -23,6 +23,7 @@ const LottieAnimation = ({ path, playAnimation }) => {
     };
   }, [path]);
 
+  // Play the animation when 'playAnimation' is true
   useEffect(() => {
     if (playAnimation && animationInstance) {
       animationInstance.goToAndPlay(0, true);

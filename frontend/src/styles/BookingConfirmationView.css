@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-color: var(--tg-theme-bg-color);
 }
 
 .booking-confirmation__header {

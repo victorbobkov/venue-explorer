@@ -11,7 +11,7 @@ function App() {
   // A method that informs the Telegram app that the Mini App is ready to be displayed
   useEffect(() => {
     WebApp.ready()
-  }, [WebApp])
+  });
 
   return (
     <div className="App">

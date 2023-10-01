@@ -131,7 +131,7 @@
 
 .venue__metadata {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
   color: var(--tg-theme-text-color-secondary);
 }

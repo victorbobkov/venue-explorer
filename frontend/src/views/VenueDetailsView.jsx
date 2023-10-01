@@ -7,7 +7,7 @@ import ScrollableContainer from '../components/ScrollableContainer.jsx';
 import { venues } from '../constants/index.js';
 import '../styles/VenueDetailsView.css';
 
-// Component rendering detailed information about a specific venue
+// Component renders detailed information about a specific venue
 const VenueDetailsView = () => {
   const { id } = useParams();
   const { WebApp } = useTelegram();
@@ -15,6 +15,7 @@ const VenueDetailsView = () => {
 
   const venue = venues.find((v) => v.id.toString() === id) || {};
 
+  // Configure Main Button and Back Button when component mounts and clean up when it unmounts
   useEffect(() => {
     WebApp.MainButton.show();
     WebApp.MainButton.setParams({ text: 'RESERVE' });
@@ -47,6 +48,8 @@ const VenueDetailsView = () => {
   const handleDateRangeChange = ({ startDate, endDate }) => {
     console.log('Selected date range: ', format(startDate, 'yyyy-MM-dd'), 'to', format(endDate, 'yyyy-MM-dd'));
   }
+
+  if (!venue.id) return <div>Venue not found!</div>
 
   return (
     <section className="venue-details">
