@@ -12,6 +12,8 @@ const useAppStore = create((set) => ({
     const isFavorited = !!state.favorites[id];
     return { favorites: { ...state.favorites, [id]: !isFavorited } };
   }),
+  selectedDates: { start: null, end: null },
+  guestInfo: {},
 }));
 
 export default useAppStore;

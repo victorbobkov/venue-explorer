@@ -32,7 +32,7 @@ const VenueDetailsView = () => {
     WebApp.BackButton.show();
 
     const handleMainButtonClick = () => {
-      navigate('/booking-confirmation/${id}');
+      navigate(`/booking-confirmation/${id}`);
     }
 
     const handleBackButtonClick = () => {

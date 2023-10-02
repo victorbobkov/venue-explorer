@@ -1,10 +1,50 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import useAppStore from '../store.js';
 import { venues } from '../constants/index.js';
 import '../styles/BookingConfirmationView.css';
+import useTelegram from '../hooks/useTelegram.js';
+import { useEffect } from 'react';
 
 const BookingConfirmationView = () => {
   const { id } = useParams();
+  const { WebApp } = useTelegram();
+  const navigate = useNavigate()
+
   const venue = venues.find((v) => v.id.toString() === id) || {};
+
+  const handleEditDates = () => {
+    // Handle dates edit
+  };
+
+  const handleEditGuests = () => {
+    // Handle guests edit
+  };
+
+  // Configure Main Button and Back Button when component mounts and clean up when it unmounts
+  useEffect(() => {
+    WebApp.MainButton.show();
+    WebApp.MainButton.setParams({ text: 'CONFIRM AND PAY' });
+    WebApp.BackButton.show();
+
+    const handleMainButtonClick = () => {
+      console.log('Main Button clicked!')
+    }
+
+    const handleBackButtonClick = () => {
+      navigate(`/details/${id}`);
+    }
+
+    WebApp.MainButton.onClick(handleMainButtonClick);
+    WebApp.BackButton.onClick(handleBackButtonClick);
+
+    return () => {
+      // Clean up
+      WebApp.MainButton.hide();
+      WebApp.BackButton.hide();
+      WebApp.MainButton.offClick(handleMainButtonClick);
+      WebApp.BackButton.offClick(handleBackButtonClick);
+    }
+  }, [WebApp, navigate])
 
   return (
     <section className="booking-confirmation">
@@ -18,17 +58,23 @@ const BookingConfirmationView = () => {
 
       <div className="booking-confirmation__trip-details">
         <h2>Getaway Snapshot</h2>
-        {/* Dates and Guests information with edit buttons */}
+        <div>
+          <p>Dates:
+            <button onClick={handleEditDates}>Edit</button>
+          </p>
+          <p>Guests:  <button onClick={handleEditGuests}>Edit</button></p>
+        </div>
       </div>
 
       <div className="booking-confirmation__price-details">
         <h2>Price Details</h2>
-        {/* Price Calculation based on selected dates and guests */}
+        <div>
+          <p>Total Price:</p>
+        </div>
       </div>
 
       <div className="booking-confirmation__payment">
         <h2>Pay with</h2>
-        {/* Payment method form */}
       </div>
     </section>
   );
