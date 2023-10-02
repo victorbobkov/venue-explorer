@@ -6,7 +6,7 @@ const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 const webAppUrl = 'https://venue-explorer.vercel.app/';
-const PORT = 8000;
+const PORT = 80;
 const app = express();
 
 bot.on('message', async (msg) => {
