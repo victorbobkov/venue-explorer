@@ -1,25 +1,37 @@
+import { useCallback } from 'react';
+import useAppStore from '../store.js';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const isFavorited = useAppStore((state) => !!state.favorites[id]);
+  const toggleFavorite = useAppStore((state) => state.toggleFavorite);
 
-  const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
-  }
+  // Callback to handle favorite toggle
+  const handleFavoriteToggle = useCallback((event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleFavorite(id);
+    console.log(isFavorited)
+  }, [toggleFavorite, id]);
 
   return (
     <li className="venue">
       <Link to={`/details/${id}`} className="venue__link" aria-label={`Link to ${name} details`}>
         <div className="venue__top">
-          <img src={imageUrl} alt={`${name} venue`} className="venue__image" loading="lazy" />
+          <img src={imageUrl} alt={`${name} venue`} className="venue__image" />
           <button
             className="venue__favorite-btn"
             aria-label="Add to favorite"
             aria-pressed={isFavorited}
-            onClick={toggleFavorite}
-          >♥</button>
+            onClick={handleFavoriteToggle}
+          >
+            <img
+              src={isFavorited ? "/assets/icons/icons8-red-heart-50.png" : "/assets/icons/icons8-heart-50.png"}
+              alt="Add to favorite icon"
+              className={`venue__favorite-icon ${isFavorited ? 'favorited' : ''}`}
+            />
+          </button>
         </div>
         <div className="venue__details">
           <div className="venue__name-price">
@@ -29,7 +41,9 @@ const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
             </span>
           </div>
           <div className="venue__metadata">
-            <span className="venue__details--rating">⭐ {rating} •</span>
+            <span className="venue__details--rating">
+              <img src="/assets/icons/icons8-star-50.png" alt="Star icon" className="venue__details--icon"/> {rating} •
+            </span>
             <span className="venue__details--type">{type}</span>
           </div>
         </div>

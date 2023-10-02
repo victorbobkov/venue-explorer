@@ -8,9 +8,9 @@ import '../styles/VenueSelectionView.css';
 
 // Component renders a list of Venue Types and their corresponding Venues
 const VenueSelectionView = () => {
-  const { scrollY, setScrollY } = useAppStore();
+  const { scrollY, setScrollY, selectedType, setSelectedType } = useAppStore();
   const { WebApp, onToggleMainButton } = useTelegram();
-  const [selectedType, setSelectedType] = useState('');
+  // const [selectedType, setSelectedType] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Set the scroll position before navigating to another page

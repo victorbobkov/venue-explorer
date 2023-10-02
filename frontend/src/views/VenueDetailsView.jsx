@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import useAppStore from '../store.js';
 import { format } from 'date-fns';
 import useTelegram from '../hooks/useTelegram.js';
 import CustomDatePicker from '../components/CustomDatePicker.jsx';
@@ -14,6 +15,15 @@ const VenueDetailsView = () => {
   const navigate = useNavigate();
 
   const venue = venues.find((v) => v.id.toString() === id) || {};
+  const isFavorited = useAppStore((state) => !!state.favorites[id]);
+  const toggleFavorite = useAppStore((state) => state.toggleFavorite);
+
+  // Callback to handle favorite toggle
+  const handleFavoriteToggle = useCallback((event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleFavorite(id);
+  }, [toggleFavorite, id]);
 
   // Configure Main Button and Back Button when component mounts and clean up when it unmounts
   useEffect(() => {
@@ -53,11 +63,28 @@ const VenueDetailsView = () => {
 
   return (
     <section className="venue-details">
-      <img src={venue.imageUrl} alt={`${venue.name} venue`} className="venue-details__image" />
+      <div className="venue-details__top">
+        <img src={venue.imageUrl} alt={`${venue.name} venue`} className="venue-details__image" />
+        <button
+          className="venue-details__favorite-btn"
+          aria-label="Add to favorite"
+          aria-pressed={isFavorited}
+          onClick={handleFavoriteToggle}
+        >
+          <img
+            src={isFavorited ? "/assets/icons/icons8-red-heart-50.png" : "/assets/icons/icons8-heart-50.png"}
+            alt="Add to favorite icon"
+            className={`venue-details__favorite-icon ${isFavorited ? 'favorited' : ''}`}
+          />
+        </button>
+      </div>
+
       <div className="venue-details__info">
         <h1 className="venue-details__name">{venue.name}</h1>
         <div className="venue-details__metadata">
-          <span className="venue-details__rating">⭐ {venue.rating} •</span>
+          <span className="venue-details__rating">
+            <img src="/assets/icons/icons8-star-50.png" alt="Star icon" className="venue-details__icon"/> {venue.rating} •
+          </span>
           <span className="venue-details__type">{venue.type} •</span>
           <span className="venue-details__price">
             {venue.price}{venue.type === 'Amusement' ? '/visit' : '/night'}
