@@ -1,16 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import useAppStore from '../store.js';
-import { venues } from '../constants/index.js';
 import '../styles/BookingConfirmationView.css';
 import useTelegram from '../hooks/useTelegram.js';
 import { useEffect } from 'react';
+import useAppStore from '../store.js';
 
 const BookingConfirmationView = () => {
   const { id } = useParams();
   const { WebApp } = useTelegram();
   const navigate = useNavigate()
 
-  const venue = venues.find((v) => v.id.toString() === id) || {};
+  // const venue = venues.find((v) => v.id.toString() === id) || {};
+  const venue = useAppStore(state => state.venues.find(v => v.id.toString() === id)) || {};
 
   const handleEditDates = () => {
     // Handle dates edit

@@ -3,15 +3,17 @@ import useAppStore from '../store.js';
 import useTelegram from '../hooks/useTelegram.js';
 import VenueType from '../components/VenueType.jsx';
 import VenueList from '../components/VenueList.jsx';
-import { venueTypes, venues } from '../constants/index.js';
+// import { venueTypes, venues,} from '../constants/index.js';
+import {  API_BASE_URL } from '../constants/index.js';
 import '../styles/VenueSelectionView.css';
 
 // Component renders a list of Venue Types and their corresponding Venues
 const VenueSelectionView = () => {
   const { scrollY, setScrollY, selectedType, setSelectedType } = useAppStore();
   const { WebApp, onToggleMainButton } = useTelegram();
-  // const [selectedType, setSelectedType] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
+  const venueTypes = useAppStore((state) => state.venueTypes);
+  const venues = useAppStore((state) => state.venues);
 
   // Set the scroll position before navigating to another page
   const handleScroll = () => setScrollY(window.scrollY);
@@ -55,6 +57,19 @@ const VenueSelectionView = () => {
       setIsAnimating(true);
     }
   };
+
+  useEffect(() => {
+    // Fetch venue types
+    fetch(`${API_BASE_URL}/venueTypes`)
+      .then(response => response.json())
+      .then(data => useAppStore.getState().setVenueTypes(data));
+
+    // Fetch venues
+    fetch(`${API_BASE_URL}/venues`)
+      .then(response => response.json())
+      .then(data => useAppStore.getState().setVenues(data));
+
+  }, []);
 
   const displayedVenues = selectedType
     ? venues.filter((venue) => venue.type === selectedType)

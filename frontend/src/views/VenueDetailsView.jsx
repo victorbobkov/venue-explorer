@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import useTelegram from '../hooks/useTelegram.js';
 import CustomDatePicker from '../components/CustomDatePicker.jsx';
 import ScrollableContainer from '../components/ScrollableContainer.jsx';
-import { venues } from '../constants/index.js';
 import '../styles/VenueDetailsView.css';
 
 // Component renders detailed information about a specific venue
@@ -14,7 +13,7 @@ const VenueDetailsView = () => {
   const { WebApp } = useTelegram();
   const navigate = useNavigate();
 
-  const venue = venues.find((v) => v.id.toString() === id) || {};
+  const venue = useAppStore((state) => state.venues.find((v) => v.id.toString() === id) || {});
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
 
@@ -24,6 +23,10 @@ const VenueDetailsView = () => {
     event.stopPropagation();
     toggleFavorite(id);
   }, [toggleFavorite, id]);
+
+  const handleMainButtonClick = () => {
+    navigate(`/booking-confirmation/${id}`);
+  }
 
   // Configure Main Button and Back Button when component mounts and clean up when it unmounts
   useEffect(() => {
@@ -104,6 +107,7 @@ const VenueDetailsView = () => {
           onDateRangeChange={handleDateRangeChange}
         />
       </div>
+      <button onClick={handleMainButtonClick}>test</button>
     </section>
   );
 };

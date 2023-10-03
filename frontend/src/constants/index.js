@@ -1,3 +1,6 @@
+// export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:80';
+export const API_BASE_URL = 'http://localhost:80/api';
+
 export const venueTypes = [
   { type: 'Apartment', iconPath: '/assets/lotties/House.json' },
   { type: 'Resort', iconPath: '/assets/lotties/Resort.json' },
