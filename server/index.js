@@ -4,7 +4,7 @@ const cors = require('cors');
 const TelegramBot = require('node-telegram-bot-api');
 const db = require('./src/db/database');
 
-const TOKEN = process.env.TELEGRAM_BOT_TEST_TOKEN;
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 const webAppUrl = 'https://venue-explorer.vercel.app/';
