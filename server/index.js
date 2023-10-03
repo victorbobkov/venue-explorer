@@ -4,14 +4,14 @@ const cors = require('cors');
 const TelegramBot = require('node-telegram-bot-api');
 const db = require('./src/db/database');
 
-const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TOKEN = process.env.TELEGRAM_BOT_TEST_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 const webAppUrl = 'https://venue-explorer.vercel.app/';
 const PORT = 80;
 const app = express();
 app.use(cors({
-  origin: ['http://127.0.0.1:5173', 'http://localhost:5173']
+  origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'https://venue-explorer.vercel.app/']
 }));
 
 // API Endpoints
