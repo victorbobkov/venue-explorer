@@ -1,4 +1,5 @@
 # Venue Explorer Bot
+![Poster Image](poster.jpg)
 
 ## Project Overview
 Venue Explorer Bot is a Telegram Mini App that allows users to explore and find venues based on different categories. Users can view details about the venues and mark their favorite ones. The project is developed as part of Telegram's Mini App development contest and serves as a reusable example for future Mini App developers.
