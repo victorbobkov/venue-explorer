@@ -24,9 +24,9 @@ const VenueDetailsView = () => {
     toggleFavorite(id);
   }, [toggleFavorite, id]);
 
-  const handleMainButtonClick = () => {
-    navigate(`/booking-confirmation/${id}`);
-  }
+  // const handleMainButtonClick = () => {
+  //   navigate(`/booking-confirmation/${id}`);
+  // }
 
   // Configure Main Button and Back Button when component mounts and clean up when it unmounts
   useEffect(() => {
@@ -107,7 +107,7 @@ const VenueDetailsView = () => {
           onDateRangeChange={handleDateRangeChange}
         />
       </div>
-      <button onClick={handleMainButtonClick}>test</button>
+      {/*<button onClick={handleMainButtonClick}>test</button>*/}
     </section>
   );
 };

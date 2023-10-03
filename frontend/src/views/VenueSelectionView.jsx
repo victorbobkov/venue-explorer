@@ -4,7 +4,7 @@ import useTelegram from '../hooks/useTelegram.js';
 import VenueType from '../components/VenueType.jsx';
 import VenueList from '../components/VenueList.jsx';
 // import { venueTypes, venues,} from '../constants/index.js';
-import {  API_BASE_URL } from '../constants/index.js';
+import { API_BASE_URL } from '../constants/index.js';
 import '../styles/VenueSelectionView.css';
 
 // Component renders a list of Venue Types and their corresponding Venues
