@@ -1,18 +1,20 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const TelegramBot = require('node-telegram-bot-api');
 const db = require('./src/db/database');
+const devCors = require('./src/middlewares/devCors');
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 const webAppUrl = 'https://venue-explorer.vercel.app/';
 const PORT = 80;
+const middlewares = [
+  devCors,
+];
+
 const app = express();
-app.use(cors({
-  origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'https://venue-explorer.vercel.app/']
-}));
+app.use(middlewares);
 
 // API Endpoints
 app.get('/api/venueTypes', (req, res) => {
@@ -25,31 +27,26 @@ app.get('/api/venueTypes', (req, res) => {
 });
 
 app.get('/api/venues', (req, res) => {
-  db.all('SELECT * FROM venues', [], (err, rows) => {
+  db.all('SELECT * FROM venues', [], async (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json(rows);
-  });
-});
 
-app.get('/api/venues/:id', (req, res) => {
-  const { id } = req.params;
-  db.get('SELECT * FROM venues WHERE id = ?', [id], (err, row) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    if (row) {
-      db.all('SELECT amenity FROM amenities WHERE venueId = ?', [id], (err, amenities) => {
-        if (err) {
-          return res.status(500).json({ error: err.message });
-        }
-        row.amenities = amenities.map(a => a.amenity);
-        res.json(row);
+    // Fetch amenities for each venue
+    const venuesWithAmenities = await Promise.all(rows.map(async venue => {
+      return new Promise((resolve, reject) => {
+        db.all('SELECT amenity FROM amenities WHERE venueId = ?', [venue.id], (err, amenities) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          venue.amenities = amenities.map(a => a.amenity);
+          resolve(venue);
+        });
       });
-    } else {
-      res.status(404).json({ error: 'Venue not found' });
-    }
+    }));
+
+    res.json(venuesWithAmenities);
   });
 });
 
