@@ -1,4 +1,4 @@
-src/db/mydb.sqlicte3
+*.sqlite3
 
 /bin
 del.js
