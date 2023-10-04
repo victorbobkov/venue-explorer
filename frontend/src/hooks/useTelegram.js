@@ -3,7 +3,7 @@ const WebApp = window.Telegram.WebApp;
 const useTelegram = () => {
   const onClose = () => {
     WebApp.close();
-  }
+  };
 
   const onToggleMainButton = () => {
     if (WebApp.MainButton.isVisible) {
@@ -11,7 +11,7 @@ const useTelegram = () => {
     } else {
       WebApp.MainButton.show();
     }
-  }
+  };
 
   const onToggleBackButton = () => {
     if (WebApp.BackButton.isVisible) {
@@ -19,7 +19,7 @@ const useTelegram = () => {
     } else {
       WebApp.BackButton.show();
     }
-  }
+  };
 
   return {
     WebApp,

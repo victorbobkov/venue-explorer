@@ -8,7 +8,7 @@ const startBot = () => {
   bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
 
-    await bot.sendMessage(chatId, 'Welcome to the Venue Booking Bot! \n\nPlease tap the button below to get started.', {
+    await bot.sendMessage(chatId, 'Adventure Awaits! 🌍\n\nTap below and let\'s discover your next charming venue together!', {
       reply_markup: {
         inline_keyboard: [
           [{text: 'Start Booking', web_app: { url: webAppUrl }}]

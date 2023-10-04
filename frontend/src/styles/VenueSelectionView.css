@@ -131,7 +131,7 @@
   display: flex;
   gap: 5px;
   align-items: center;
-  color: var(--tg-theme-text-color-secondary);
+  color: var(--tg-theme-hint-color);
 }
 
 .venue__details--name {

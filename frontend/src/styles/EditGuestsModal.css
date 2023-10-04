@@ -1,0 +1,70 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--tg-theme-bg-color);
+  /*background-color: lightgray;*/
+  padding: 20px;
+  z-index: 1000;
+  width: 80%;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal__guest-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.modal__guest-info {
+  display: flex;
+  flex-direction: column;
+  color: var(--tg-theme-text-color);
+}
+
+.modal__age-info {
+  font-size: 14px;
+  color: var(--tg-theme-hint-color);
+}
+
+.modal__guest-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal__guest-buttons button {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.modal__guest-buttons button:disabled {
+  color: gray;
+  border-color: gray;
+  cursor: not-allowed;
+}
+
+.modal__buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.modal__buttons button {
+  width: 100px;
+  height: 40px;
+  font-family: var(--default-font);
+}
