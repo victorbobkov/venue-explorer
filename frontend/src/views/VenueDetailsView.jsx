@@ -9,13 +9,19 @@ import '../styles/VenueDetailsView.css';
 
 // Component renders detailed information about a specific venue
 const VenueDetailsView = () => {
+  const { selectedDates, setSelectedDates } = useAppStore();
   const { id } = useParams();
   const { WebApp } = useTelegram();
   const navigate = useNavigate();
 
+  const venueTypes = useAppStore((state) => state.venueTypes);
   const venue = useAppStore((state) => state.venues.find((v) => v.id.toString() === id) || {});
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
+
+  // Find corresponding type name
+  const type = venueTypes.find((t) => t.id === venue.typeId);
+  const typeName = type ? type.type : 'Unknown Type';
 
   // Callback to handle favorite toggle
   const handleFavoriteToggle = useCallback((event) => {
@@ -56,7 +62,8 @@ const VenueDetailsView = () => {
 
   const handleDateRangeChange = ({ startDate, endDate }) => {
     console.log('Selected date range: ', format(startDate, 'yyyy-MM-dd'), 'to', format(endDate, 'yyyy-MM-dd'));
-  }
+    setSelectedDates(startDate, endDate);
+  };
 
   if (!venue.id) return <div>Venue not found!</div>
 
@@ -84,9 +91,9 @@ const VenueDetailsView = () => {
           <span className="venue-details__rating">
             <img src="/assets/icons/icons8-star-50.png" alt="Star icon" className="venue-details__icon"/> {venue.rating} •
           </span>
-          <span className="venue-details__type">{venue.type} •</span>
+          <span className="venue-details__type">{typeName} •</span>
           <span className="venue-details__price">
-            {venue.price}{venue.type === 'Amusement' ? '/visit' : '/night'}
+            ${venue.price}{venue.typeId === 4 ? '/visit' : '/night'}
           </span>
         </div>
         <ScrollableContainer>
@@ -98,12 +105,14 @@ const VenueDetailsView = () => {
         </ScrollableContainer>
         <p className="venue-details__description">{venue.description}</p>
         <CustomDatePicker
-          isSingleDate={venue.type === 'Amusement'}
+          isSingleDate={venue.typeId === 4}
           onDateChange={handleDateChange}
           onDateRangeChange={handleDateRangeChange}
+          startDate={selectedDates.start}
+          endDate={selectedDates.end}
         />
       </div>
-      <button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>
+      {/*<button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>*/}
     </section>
   );
 };

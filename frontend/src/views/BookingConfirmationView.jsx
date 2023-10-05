@@ -2,20 +2,43 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAppStore from '../store.js';
 import useTelegram from '../hooks/useTelegram.js';
-import { venues} from '../constants/index.js';
 import '../styles/BookingConfirmationView.css';
 import EditGuestsModal from '../components/EditGuestsModal.jsx';
+import { format } from 'date-fns';
+import EditDatesModal from '../components/EditDatesModal.jsx';
+import { getDifferenceInDays } from '../constants/dateUtilities';
 
 const BookingConfirmationView = () => {
   const { id } = useParams();
   const { WebApp } = useTelegram();
   const navigate = useNavigate();
+  const { selectedDates, setSelectedDates } = useAppStore();
 
-  // const venue = venues.find((v) => v.id.toString() === id) || {};
   const venue = useAppStore(state => state.venues.find(v => v.id.toString() === id)) || {};
-
   const [guestDetails, setGuestDetails] = useState({ adults: 1, children: 0, pets: 0 });
   const [isEditingGuests, setIsEditingGuests] = useState(false);
+  const [isEditingDates, setIsEditingDates] = useState(false);
+
+  const isSingleDate = venue.typeId === 4;
+
+  // Dynamically calculate the number of nights and total price
+  let numberOfNights = 0;
+  let totalPrice = 0;
+
+  if (selectedDates.start && selectedDates.end && venue.price != null) {
+    numberOfNights = venue.typeId === 4 ? 1 : getDifferenceInDays(selectedDates.start, selectedDates.end);
+    const pricePerNight = Number(venue.price);
+    totalPrice = numberOfNights * pricePerNight;
+  }
+
+  let formattedDates;
+  if (isSingleDate && selectedDates.start) {
+    formattedDates = format(selectedDates.start, 'MMM d');
+  } else if (selectedDates.start && selectedDates.end) {
+    formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'd')}`;
+  } else {
+    formattedDates = "Dates not selected";
+  }
 
   // Configure Main Button and Back Button when component mounts and clean up when it unmounts
   useEffect(() => {
@@ -44,11 +67,24 @@ const BookingConfirmationView = () => {
   }, [WebApp, navigate]);
 
   const handleEditDates = () => {
-    // Handle dates edit
+    if (!isEditingGuests) {
+      setIsEditingDates(true);
+    }
+  };
+
+  const handleSaveDateDetails = (startDate, endDate) => {
+    setSelectedDates(startDate, endDate);
+    setIsEditingDates(false);
+  };
+
+  const handleCancelEditDates = () => {
+    setIsEditingDates(false);
   };
 
   const handleEditGuests = () => {
-    setIsEditingGuests(true);
+    if (!isEditingDates) {
+      setIsEditingGuests(true);
+    }
   };
 
   const handleSaveGuestDetails = (details) => {
@@ -77,7 +113,9 @@ const BookingConfirmationView = () => {
           Getaway Snapshot
         </h2>
         <div className="booking-confirmation__item">
-          <span>Dates: <br/> Nov 5 - 10</span>
+          <div className="booking-confirmation__item">
+            <span>Dates: <br/> {formattedDates}</span>
+          </div>
           <button onClick={handleEditDates} className="booking-confirmation__item--button">Edit</button>
         </div>
         <div className="booking-confirmation__item">
@@ -91,18 +129,30 @@ const BookingConfirmationView = () => {
           Price Details
         </h2>
         <div className="booking-confirmation__item">
-          <span className="booking-confirmation__price-normal">$100 x 7 nights</span>
-          <span className="booking-confirmation__price-value">$700</span>
+          <span className="booking-confirmation__price-normal">
+            {Number(venue.price)} x {numberOfNights} nights
+          </span>
+          <span className="booking-confirmation__price-value">
+            ${totalPrice}
+          </span>
         </div>
         <div className="booking-confirmation__item">
           <span className="booking-confirmation__price-label">Total Price:</span>
-          <span className="booking-confirmation__price-value">$700</span>
+          <span className="booking-confirmation__price-value">${totalPrice}</span>
         </div>
       </div>
       <EditGuestsModal
         isVisible={isEditingGuests}
         onSave={handleSaveGuestDetails}
         onCancel={handleCancelEditGuests}
+      />
+      <EditDatesModal
+        isVisible={isEditingDates}
+        onSave={handleSaveDateDetails}
+        onCancel={handleCancelEditDates}
+        startDate={selectedDates.start}
+        endDate={selectedDates.end}
+        isSingleDate={isSingleDate}
       />
     </section>
   );

@@ -160,9 +160,12 @@
 }
 
 .venue__details--icon {
-  width: 15px;
-  height: 15px;
-  margin: 0 5px 0 0;
+  /*width: 15px;*/
+  /*height: 15px;*/
+  /*margin: 0 5px 0 0;*/
+  width: 12px;
+  height: 12px;
+  margin: 0 4px 0 0;
 }
 
 @media (max-width: 375px) {

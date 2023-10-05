@@ -1,4 +1,8 @@
 import { create } from 'zustand';
+import { add } from 'date-fns';
+
+const today = new Date();
+const tomorrow = add(today, { days: 1 });
 
 const useAppStore = create((set) => ({
   scrollY: 0,
@@ -16,7 +20,9 @@ const useAppStore = create((set) => ({
     return { favorites: { ...state.favorites, [id]: !isFavorited } };
   }),
 
-  selectedDates: { start: null, end: null },
+  selectedDates: { start: today, end: tomorrow },
+  setSelectedDates: (start, end) => set({ selectedDates: { start, end } }),
+
   guestInfo: {},
 
   venueTypes: [],

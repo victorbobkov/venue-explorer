@@ -3,9 +3,13 @@ import useAppStore from '../store.js';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
+const VenueItem = ({ id, name, typeId, rating, price, imageUrl }) => {
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
+  const venueTypes = useAppStore((state) => state.venueTypes);
+
+  const type = venueTypes.find((t) => t.id === typeId);
+  const typeName = type ? type.type : 'Unknown Type';
 
   // Callback to handle favorite toggle
   const handleFavoriteToggle = useCallback((event) => {
@@ -37,14 +41,14 @@ const VenueItem = ({ id, name, type, rating, price, imageUrl }) => {
           <div className="venue__name-price">
             <span className="venue__details--name">{name}</span>
             <span className="venue__details--price">
-              {price}{type === 'Amusement' ? '/visit' : '/night'}
+              ${price}{typeId === 4 ? '/visit' : '/night'}
             </span>
           </div>
           <div className="venue__metadata">
             <span className="venue__details--rating">
               <img src="/assets/icons/icons8-star-50.png" alt="Star icon" className="venue__details--icon"/> {rating} •
             </span>
-            <span className="venue__details--type">{type}</span>
+            <span className="venue__details--type">{typeName}</span>
           </div>
         </div>
       </Link>
@@ -56,9 +60,9 @@ VenueItem.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  typeId: PropTypes.number.isRequired,
 };
 
 export default VenueItem;

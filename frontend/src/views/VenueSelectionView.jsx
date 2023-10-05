@@ -3,12 +3,12 @@ import useAppStore from '../store.js';
 import useTelegram from '../hooks/useTelegram.js';
 import VenueType from '../components/VenueType.jsx';
 import VenueList from '../components/VenueList.jsx';
-// import { venueTypes, venues,} from '../constants/index.js';
-import { API_BASE_URL } from '../constants/index.js';
 import '../styles/VenueSelectionView.css';
 
 // Component renders a list of Venue Types and their corresponding Venues
 const VenueSelectionView = () => {
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
   const { scrollY, setScrollY, selectedType, setSelectedType } = useAppStore();
   const { WebApp, onToggleMainButton } = useTelegram();
   const [isAnimating, setIsAnimating] = useState(false);
@@ -45,13 +45,13 @@ const VenueSelectionView = () => {
   }, [WebApp, onToggleMainButton]);
 
   // Handle the click event for a Venue Type
-  const handleTypeClick = (type) => {
-    if (selectedType === type) {
+  const handleTypeClick = (typeId) => {
+    if (selectedType === typeId) {
       setSelectedType('');
       onToggleMainButton();
       setIsAnimating(false);
     } else {
-      setSelectedType(type)
+      setSelectedType(typeId)
       WebApp.MainButton.show();
       WebApp.MainButton.setParams({ text: 'SHOW ALL' });
       setIsAnimating(true);
@@ -61,18 +61,35 @@ const VenueSelectionView = () => {
   useEffect(() => {
     // Fetch venue types
     fetch(`${API_BASE_URL}/venueTypes`)
-      .then(response => response.json())
-      .then(data => useAppStore.getState().setVenueTypes(data));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => useAppStore.getState().setVenueTypes(data))
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
 
     // Fetch venues
     fetch(`${API_BASE_URL}/venues`)
-      .then(response => response.json())
-      .then(data => useAppStore.getState().setVenues(data));
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => useAppStore.getState().setVenues(data))
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+
 
   }, []);
 
   const displayedVenues = selectedType
-    ? venues.filter((venue) => venue.type === selectedType)
+    ? venues.filter((venue) => venue.typeId === selectedType)
     : venues;
 
   return (
@@ -80,11 +97,11 @@ const VenueSelectionView = () => {
       <div className="venue-selection__types">
         {venueTypes.map((type) => (
           <VenueType
-            key={type.type}
+            key={type.id}
             {...type}
-            onTypeClick={() => handleTypeClick(type.type)}
-            isActive={selectedType === type.type}
-            shouldAnimate={isAnimating && selectedType === type.type}
+            onTypeClick={() => handleTypeClick(type.id)}
+            isActive={selectedType === type.id}
+            shouldAnimate={isAnimating && selectedType === type.id}
           />
         ))}
       </div>

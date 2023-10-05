@@ -13,8 +13,8 @@ let db = new sqlite3.Database(dbPath, (err) => {
 
 // Define Schema and create tables
 db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS venueTypes (type TEXT, iconPath TEXT)');
-  db.run('CREATE TABLE IF NOT EXISTS venues (id INTEGER PRIMARY KEY, name TEXT, type TEXT, rating REAL, price TEXT, imageUrl TEXT, description TEXT)');
+  db.run('CREATE TABLE IF NOT EXISTS venueTypes (id INTEGER PRIMARY KEY, type TEXT, iconPath TEXT)');
+  db.run('CREATE TABLE IF NOT EXISTS venues (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER, rating REAL, price INTEGER, imageUrl TEXT, description TEXT, FOREIGN KEY (typeId) REFERENCES venueTypes (id))');
   db.run('CREATE TABLE IF NOT EXISTS amenities (venueId INTEGER, amenity TEXT, FOREIGN KEY (venueId) REFERENCES venues (id))');
 });
 
