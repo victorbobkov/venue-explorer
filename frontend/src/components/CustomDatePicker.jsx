@@ -8,39 +8,42 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
   const [selectedEndDate, setSelectedEndDate] = useState(formatDate(endDate));
   const today = new Date();
 
-  const handleStartDateChange = (e) => {
-    const dateStr = e.target.value;
-    const date = parseDate(dateStr);
+  const updateStartDate = (dateStr, date) => {
     setSelectedStartDate(dateStr);
 
     // Ensuring endDate is at least +1 day from startDate
     const minimumEndDate = addDays(date, 1);
 
-    if (isSingleDate) {
-      onDateChange(date);
+    if (!selectedEndDate || parseDate(selectedEndDate) < minimumEndDate) {
+      const newEndDateStr = formatDate(minimumEndDate);
+      setSelectedEndDate(newEndDateStr);
+      onDateRangeChange({ startDate: date, endDate: minimumEndDate });
     } else {
-      if (!selectedEndDate || parseDate(selectedEndDate) < minimumEndDate) {
-        const newEndDateStr = formatDate(minimumEndDate);
-        setSelectedEndDate(newEndDateStr);
-        onDateRangeChange({ startDate: date, endDate: minimumEndDate });
-      } else {
-        onDateRangeChange({ startDate: date, endDate: parseDate(selectedEndDate) });
-      }
+      onDateRangeChange({ startDate: date, endDate: parseDate(selectedEndDate) });
     }
   };
 
-  const handleEndDateChange = (e) => {
-    const dateStr = e.target.value;
-    const date = parseDate(dateStr);
+  const updateEndDate = (dateStr, date) => {
     setSelectedEndDate(dateStr);
-
-    if (selectedStartDate && parseDate(selectedStartDate) >= date) {
+    if (parseDate(selectedStartDate) >= date) {
       const newStartDateStr = formatDate(addDays(date, -1));
       setSelectedStartDate(newStartDateStr);
       onDateRangeChange({ startDate: parseDate(newStartDateStr), endDate: date });
     } else {
       onDateRangeChange({ startDate: parseDate(selectedStartDate), endDate: date });
     }
+  };
+
+  const handleStartDateChange = (e) => {
+    const dateStr = e.target.value;
+    const date = parseDate(dateStr);
+    isSingleDate ? onDateChange(date) : updateStartDate(dateStr, date);
+  };
+
+  const handleEndDateChange = (e) => {
+    const dateStr = e.target.value;
+    const date = parseDate(dateStr);
+    updateEndDate(dateStr, date);
   };
 
   return (
