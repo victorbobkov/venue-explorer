@@ -5,7 +5,6 @@ import { VENUE_TYPES } from '../../../../constants/constants.js';
 import './DetailsInfo.css';
 
 const DetailsInfo = ({ venue, selectedDates, onDateChange, onDateRangeChange }) => (
-
   <div className="venue-details__info">
     <h1 className="venue-details__name">{venue.name}</h1>
     <div className="venue-details__metadata">
@@ -41,7 +40,7 @@ DetailsInfo.propTypes = {
     rating: PropTypes.number,
     type: PropTypes.string,
     price: PropTypes.number,
-    typeId: PropTypes.string,
+    typeId: PropTypes.number,
     amenities: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.string,
   }).isRequired,
