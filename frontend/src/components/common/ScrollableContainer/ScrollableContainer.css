@@ -1,0 +1,19 @@
+.venue-details__amenities {
+  display: flex;
+  width: 100%;
+  margin: 10px 0 0 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: auto;
+  cursor: grab;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.venue-details__amenities:active {
+  cursor: grabbing;
+}
+
+.venue-details__amenities::-webkit-scrollbar {
+  display: none;
+}

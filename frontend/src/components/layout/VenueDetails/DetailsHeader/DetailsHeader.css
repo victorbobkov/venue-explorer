@@ -1,0 +1,10 @@
+.venue-details__top {
+  position: relative;
+}
+
+.venue-details__image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+}

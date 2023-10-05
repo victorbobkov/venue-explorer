@@ -1,0 +1,9 @@
+.booking-confirmation {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  min-height: 100vh;
+  max-width: 700px;
+  background-color: var(--tg-theme-bg-color);
+}

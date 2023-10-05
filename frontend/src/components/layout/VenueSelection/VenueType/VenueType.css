@@ -1,0 +1,24 @@
+.venue-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  background-color: var(--tg-theme-btn-color);
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--default-font);
+  color: var(--tg-theme-text-color);
+  transition: background-color 0.3s;
+}
+
+.venue-type.active {
+  font-weight: bold;
+}
+
+@media (max-width: 375px) {
+  .venue-type {
+    font-size: 12px;
+    padding: 5px 5px;
+  }
+}

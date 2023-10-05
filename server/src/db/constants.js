@@ -52,7 +52,7 @@ module.exports = {
       typeId: 1,
       rating: 4.8,
       price: 180,
-      imageUrl: '/assets/images/art3.jpg',
+      imageUrl: '/assets/images/art4.jpg',
       description: 'A stylish loft with elegant furnishings, offering a cozy and relaxing stay with panoramic city views.',
       amenities: ['Free Wi-Fi', 'Panoramic Views', 'Smart TV', 'Fully Equipped Kitchen', 'Gym Access', 'Parking'],
     },

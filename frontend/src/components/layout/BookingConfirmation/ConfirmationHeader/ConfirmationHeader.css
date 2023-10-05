@@ -1,0 +1,39 @@
+.booking-confirmation__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.booking-confirmation__image {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.booking-confirmation__info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100px;
+  padding: 10px 0;
+}
+
+.booking-confirmation__name {
+  margin: 0;
+  font-size: 18px;
+}
+
+.booking-confirmation__rating {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 18px;
+}
+
+.booking-confirmation__icon {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px 0 0;
+}

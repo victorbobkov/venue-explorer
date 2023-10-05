@@ -1,0 +1,13 @@
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-icon {
+  width: 20px;
+  height: 20px;
+}

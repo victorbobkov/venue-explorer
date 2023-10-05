@@ -1,0 +1,13 @@
+.venue-selection__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  list-style-type: none;
+}
+
+@media (min-width: 600px) {
+  .venue-selection__list {
+    grid-template-columns: 1fr 1fr;
+  }
+}

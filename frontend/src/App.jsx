@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useTelegram from './hooks/useTelegram.js';
-import VenueSelectionView from './views/VenueSelectionView.jsx';
-import VenueDetailsView from './views/VenueDetailsView.jsx';
-import BookingConfirmationView from './views/BookingConfirmationView.jsx';
+import VenueSelectionView from './views/VenueSelectionView';
+import VenueDetailsView from './views/VenueDetailsView';
+import BookingConfirmationView from './views/BookingConfirmationView';
 
 function App() {
   const { WebApp } = useTelegram();

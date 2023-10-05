@@ -1,0 +1,28 @@
+.booking-confirmation__trip-details {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--tg-theme-secondary-bg-color);
+  border-radius: 5px;
+}
+
+.booking-confirmation__trip-details--header {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.booking-confirmation__item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.booking-confirmation__item--button {
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

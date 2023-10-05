@@ -1,0 +1,22 @@
+.venue-details__booking {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0 0 0;
+  color: var(--tg-theme-text-color);
+}
+
+.venue-details__label {
+  display: block;
+  margin: 5px 0 0 0;
+}
+
+.venue-details__input {
+  padding: 2px;
+  margin: 0 0 0 10px;
+  border: 1px solid var(--tg-theme-text-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: var(--default-font);
+  outline: none;
+  transition: border .2s;
+}
