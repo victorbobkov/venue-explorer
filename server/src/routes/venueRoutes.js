@@ -35,4 +35,11 @@ router.get('/venues', (req, res) => {
   });
 });
 
+router.get('/create-invoice', (req, res) => {
+  const paymentUrl = process.env.SERVER_URL;
+
+  res.json({ paymentUrl });
+});
+
+
 module.exports = router;

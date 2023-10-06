@@ -8,6 +8,7 @@ import PriceDetails from '../../components/layout/BookingConfirmation/PriceDetai
 import { VENUE_TYPES } from '../../constants/constants.js';
 import { getDifferenceInDays } from '../../constants/dateUtilities.js';
 import './BookingConfirmationView.css';
+import { API_BASE_URL } from '../../constants/constants.js';
 
 const BookingConfirmationView = () => {
   const { id } = useParams();
@@ -40,8 +41,21 @@ const BookingConfirmationView = () => {
     WebApp.MainButton.setParams({ text: 'CONFIRM AND PAY' });
     WebApp.BackButton.show();
 
-    const handleMainButtonClick = () => {
-      console.log('Main Button clicked!')
+    const handleMainButtonClick = async () => {
+      console.log('Main Button clicked!');
+
+      try {
+        // Fetch the invoice URL from the server
+        const response = await fetch(`${API_BASE_URL}/create-invoice`);
+        const { paymentUrl } = await response.json();
+
+        // Use the openInvoice method to open the invoice
+        WebApp.openInvoice(paymentUrl, (invoiceStatus) => {
+          console.log('Invoice status:', invoiceStatus);
+        });
+      } catch (error) {
+        console.error("Error fetching the payment URL:", error);
+      }
     }
 
     const handleBackButtonClick = () => {
