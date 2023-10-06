@@ -36,7 +36,7 @@ router.get('/venues', (req, res) => {
   });
 });
 
-router.get('/create-invoice', (req, res) => {
+router.post('/create-invoice', (req, res) => {
   const userId = req.body.userId;
 
   if (!userId) {
