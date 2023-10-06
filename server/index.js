@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const venueRoutes = require('./routes/venueRoutes');
-const devCors = require('./middlewares/devCors');
+const venueRoutes = require('./src/routes/venueRoutes');
+const devCors = require('./src/middlewares/devCors');
 
-const { startBot } = require('./bot');
+const { startBot } = require('./src/bot');
 startBot();
 
 const app = express();
