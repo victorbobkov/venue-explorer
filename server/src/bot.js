@@ -12,7 +12,7 @@ const startBot = () => {
       reply_markup: {
         inline_keyboard: [
           [{text: 'Start Booking', web_app: { url: webAppUrl }}],
-          [{text: 'Make a Test Payment', callback_data: 'pay'}]
+          // [{text: 'Make a Test Payment', callback_data: 'pay'}]
         ],
         resize_keyboard: true,
       }

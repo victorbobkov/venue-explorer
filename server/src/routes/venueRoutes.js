@@ -41,7 +41,7 @@ router.post('/create-invoice-link', async (req, res) => {
     description,
     payload,
     prices
-  } = req.query;
+  } = req.body;
 
   if (!description || !payload || !prices) {
     return res.status(400).json({ error: "Bad Request: Missing parameters" });

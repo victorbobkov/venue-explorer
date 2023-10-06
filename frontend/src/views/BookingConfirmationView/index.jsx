@@ -43,28 +43,34 @@ const BookingConfirmationView = () => {
 
     const handleMainButtonClick = async () => {
       try {
-        // Construct URL for request to the server
-        const invoiceRequestUrl = new URL(`${API_BASE_URL}/create-invoice-link`);
+        const response = await fetch(`${API_BASE_URL}/create-invoice-link`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            description: 'Description',
+            payload: 'Payload',
+            prices: [{
+              label: "Booking Cost",
+              amount: 10000 // in cents
+            }]
+          })
+        });
 
-        // Set parameters
-        invoiceRequestUrl.searchParams.set('description', 'Description');
-        invoiceRequestUrl.searchParams.set('payload', 'Payload');
-        invoiceRequestUrl.searchParams.set('prices', JSON.stringify([{
-          label: "Booking Cost",
-          amount: 10000 // in cents
-        }]));
+        if(!response.ok) {
+          console.error("Error: ", response.status, await response.text());
+          return;
+        }
 
-        // Fetch the invoice link from the server
-        const response = await fetch(invoiceRequestUrl.toString());
         const data = await response.json();
 
         // Open the invoice link using WebApp
-        if(data && data.result) {
+        if (data && data.result) {
           WebApp.openInvoice(data.result);
         } else {
           console.error("Failed to retrieve payment link", data);
         }
-
       } catch (error) {
         console.error("Error fetching the payment URL:", error);
       }
