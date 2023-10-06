@@ -36,29 +36,46 @@ router.get('/venues', (req, res) => {
   });
 });
 
-router.post('/create-invoice', (req, res) => {
-  const userId = req.body.userId;
+router.post('/create-invoice-link', async (req, res) => {
+  const {
+    description,
+    payload,
+    prices
+  } = req.query;
 
-  if (!userId) {
-    return res.status(400).json({ success: false, error: 'User ID is required.' });
+  if (!description || !payload || !prices) {
+    return res.status(400).json({ error: "Bad Request: Missing parameters" });
   }
 
-  bot.sendInvoice(
-    userId,
-    "Test Product",
-    "Example description",
-    "payload",
-    process.env.PROVIDER_TOKEN,
-    "USD",
-    [{"label": "Test Product", "amount": 1000}]
-  )
-    .then(() => {
-      res.json({ success: true });
-    })
-    .catch(error => {
-      res.status(500).json({ success: false, error: error.message });
-    });
-});
+  const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const PROVIDER_TOKEN = process.env.PROVIDER_TOKEN;
 
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/createInvoiceLink`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: "Booking",
+        description: description,
+        payload: payload,
+        provider_token: PROVIDER_TOKEN,
+        currency: 'USD',
+        prices: prices,
+        // photo_url: 'https://image-url.png',
+        need_name: true,
+        need_phone_number: true
+      })
+    });
+
+    const data = await response.json();
+    res.json(data);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;
