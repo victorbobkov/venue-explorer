@@ -8,6 +8,7 @@ startBot();
 
 const app = express();
 app.use(devCors);
+app.use(express.json());
 app.use('/api', venueRoutes);
 
 const PORT = 80;
