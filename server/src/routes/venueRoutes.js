@@ -70,8 +70,15 @@ router.post('/create-invoice-link', async (req, res) => {
     });
 
     const data = await response.json();
-    res.json(data);
 
+    console.log("Telegram API Response:", data);
+
+    if (!data.ok) {
+      console.error("Telegram API Error:", data.description);
+      return res.status(502).json({ error: "Failed to create invoice link. Please try again later." });
+    }
+
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -76,12 +76,39 @@ const BookingConfirmationView = () => {
       }
     }
 
+    const handleInvoiceClosed = (object) => {
+      console.log("Invoice closed event received:", object);
+      switch (object.status) {
+        case 'paid':
+          console.log("Payment successful");
+          navigate(`/`);
+          break;
+        case 'cancelled':
+          console.log("Payment was cancelled");
+          alert("Payment was cancelled. Your booking is not confirmed.");
+          break;
+        case 'failed':
+          console.log("Payment failed");
+          alert("Don’t worry. We will keep your selection.");
+          break;
+        case 'pending':
+          console.log("Payment is pending");
+          alert("Payment is pending. We will notify you once the payment is confirmed.");
+          break;
+        default:
+          console.log("Unexpected payment status:", object.status);
+          alert("An unexpected status was returned. Please try again later.");
+          break;
+      }
+    };
+
     const handleBackButtonClick = () => {
       navigate(`/details/${id}`);
     }
 
     WebApp.MainButton.onClick(handleMainButtonClick);
     WebApp.BackButton.onClick(handleBackButtonClick);
+    WebApp.onEvent('invoiceClosed', handleInvoiceClosed);
 
     return () => {
       // Clean up
@@ -89,6 +116,8 @@ const BookingConfirmationView = () => {
       WebApp.BackButton.hide();
       WebApp.MainButton.offClick(handleMainButtonClick);
       WebApp.BackButton.offClick(handleBackButtonClick);
+      WebApp.offEvent('invoiceClosed', handleInvoiceClosed);
+
     }
   }, [WebApp, navigate]);
 
