@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/database');
+const { bot } = require('../bot.js');
 
 router.get('/venueTypes', (req, res) => {
   db.all('SELECT * FROM venueTypes', [], (err, rows) => {
@@ -36,9 +37,27 @@ router.get('/venues', (req, res) => {
 });
 
 router.get('/create-invoice', (req, res) => {
-  const paymentUrl = process.env.SERVER_URL;
+  const userId = req.body.userId;
 
-  res.json({ paymentUrl });
+  if (!userId) {
+    return res.status(400).json({ success: false, error: 'User ID is required.' });
+  }
+
+  bot.sendInvoice(
+    userId,
+    "Test Product",
+    "Example description",
+    "payload",
+    process.env.PROVIDER_TOKEN,
+    "USD",
+    [{"label": "Test Product", "amount": 1000}]
+  )
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch(error => {
+      res.status(500).json({ success: false, error: error.message });
+    });
 });
 
 

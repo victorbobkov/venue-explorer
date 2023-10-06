@@ -19,7 +19,6 @@ const VenueItem = ({ id, name, typeId, rating, price, imageUrl }) => {
     event.preventDefault();
     event.stopPropagation();
     toggleFavorite(id);
-    console.log(isFavorited)
   }, [toggleFavorite, id]);
 
   return (

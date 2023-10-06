@@ -3,7 +3,8 @@ import useAppStore from '../../store.js';
 import useTelegram from '../../hooks/useTelegram.js';
 import VenueType from '../../components/layout/VenueSelection/VenueType';
 import VenueList from '../../components/layout/VenueSelection/VenueList';
-import { API_BASE_URL } from '../../constants/constants';
+import { useQuery } from '@tanstack/react-query';
+import { fetchVenues, fetchVenueTypes } from '../../fetchers/venueFetchers.js';
 import './VenueSelectionView.css';
 
 // Component renders a list of Venue Types and their corresponding Venues
@@ -11,8 +12,26 @@ const VenueSelectionView = () => {
   const { scrollY, setScrollY, selectedType, setSelectedType } = useAppStore();
   const { WebApp, onToggleMainButton } = useTelegram();
   const [isAnimating, setIsAnimating] = useState(false);
-  const venueTypes = useAppStore((state) => state.venueTypes);
-  const venues = useAppStore((state) => state.venues);
+
+  const { data: venueTypes, isError: isErrorVenueTypes, isLoading: isLoadingVenueTypes } = useQuery(
+    ['venueTypes'],
+    fetchVenueTypes
+  );
+
+  const { data: venues, isError: isErrorVenues, isLoading: isLoadingVenues } = useQuery(
+    ['venues'],
+    fetchVenues
+  );
+
+  useEffect(() => {
+    if (venueTypes) {
+      useAppStore.getState().setVenueTypes(venueTypes);
+    }
+
+    if (venues) {
+      useAppStore.getState().setVenues(venues);
+    }
+  }, [venueTypes, venues]);
 
   // Set the scroll position before navigating to another page
   const handleScroll = () => setScrollY(window.scrollY);
@@ -43,6 +62,18 @@ const VenueSelectionView = () => {
     }
   }, [WebApp, onToggleMainButton]);
 
+  if (isLoadingVenueTypes || isLoadingVenues) {
+    return <div>Loading...</div>;
+  }
+
+  if (isErrorVenueTypes || isErrorVenues) {
+    return (
+      <div>
+        <p>Error fetching data. Please check your internet connection.</p>
+      </div>
+    )
+  }
+
   // Handle the click event for a Venue Type
   const handleTypeClick = (typeId) => {
     if (selectedType === typeId) {
@@ -56,34 +87,6 @@ const VenueSelectionView = () => {
       setIsAnimating(true);
     }
   };
-
-  useEffect(() => {
-    // Fetch venue types
-    fetch(`${API_BASE_URL}/venueTypes`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => useAppStore.getState().setVenueTypes(data))
-      .catch((error) => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-
-    // Fetch venues
-    fetch(`${API_BASE_URL}/venues`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => useAppStore.getState().setVenues(data))
-      .catch((error) => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-  }, []);
 
   const displayedVenues = selectedType
     ? venues.filter((venue) => venue.typeId === selectedType)

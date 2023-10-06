@@ -42,17 +42,22 @@ const BookingConfirmationView = () => {
     WebApp.BackButton.show();
 
     const handleMainButtonClick = async () => {
-      console.log('Main Button clicked!');
-
       try {
-        // Fetch the invoice URL from the server
-        const response = await fetch(`${API_BASE_URL}/create-invoice`);
-        const { paymentUrl } = await response.json();
-
-        // Use the openInvoice method to open the invoice
-        WebApp.openInvoice(paymentUrl, (invoiceStatus) => {
-          console.log('Invoice status:', invoiceStatus);
+        const response = await fetch(`${API_BASE_URL}/create-invoice`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: WebApp.initDataUnsafe?.user?.id
+          })
         });
+        const result = await response.json();
+        if (result.success) {
+          console.log("Payment initiation successful.");
+        } else {
+          console.error("Error initiating payment:", result.error);
+        }
       } catch (error) {
         console.error("Error fetching the payment URL:", error);
       }

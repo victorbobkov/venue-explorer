@@ -47,5 +47,5 @@ const startBot = () => {
   console.log('Bot is running...')
 };
 
-module.exports = { startBot };
+module.exports = { bot, startBot };
 

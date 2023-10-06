@@ -19,7 +19,7 @@ const DetailsInfo = ({ venue, selectedDates, onDateChange, onDateRangeChange }) 
     <ScrollableContainer>
       {
         venue.amenities && venue.amenities.map((amenity, index) => (
-          <span key={index} className="venue-details__amenity">{amenity}</span>
+          <span key={amenity} className="venue-details__amenity">{amenity}</span>
         ))
       }
     </ScrollableContainer>

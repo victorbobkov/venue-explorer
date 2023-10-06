@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import lottie from 'lottie-web';
 import PropTypes from 'prop-types';
 import './LottieAnimation.css';
@@ -41,4 +41,4 @@ LottieAnimation.propTypes = {
   playAnimation: PropTypes.bool.isRequired,
 }
 
-export default LottieAnimation;
+export default memo(LottieAnimation);
