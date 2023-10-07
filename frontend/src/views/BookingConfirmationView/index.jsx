@@ -41,9 +41,10 @@ const BookingConfirmationView = () => {
     WebApp.MainButton.setParams({ text: 'CONFIRM AND PAY' });
     WebApp.BackButton.show();
 
+    // Handle payment process on button click by sending request to server to create an invoice link
     const handleMainButtonClick = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/create-invoice-link`, {
+        const response = await fetch(`${API_BASE_URL}/createInvoice`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ const BookingConfirmationView = () => {
 
         const data = await response.json();
 
-        // Open the invoice link using WebApp
+        // If the data is valid, use the Telegram WebApp to open the invoice link for payment
         if (data && data.result) {
           WebApp.openInvoice(data.result);
         } else {
@@ -74,8 +75,10 @@ const BookingConfirmationView = () => {
       } catch (error) {
         console.error("Error fetching the payment URL:", error);
       }
-    }
+    };
 
+    // Handler for the event when the invoice UI is closed
+    // Optionally handle different payment statuses: paid, cancelled, failed, pending
     const handleInvoiceClosed = (object) => {
       console.log("Invoice closed event received:", object);
       switch (object.status) {
@@ -117,7 +120,6 @@ const BookingConfirmationView = () => {
       WebApp.MainButton.offClick(handleMainButtonClick);
       WebApp.BackButton.offClick(handleBackButtonClick);
       WebApp.offEvent('invoiceClosed', handleInvoiceClosed);
-
     }
   }, [WebApp, navigate]);
 

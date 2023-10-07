@@ -36,21 +36,24 @@ router.get('/venues', (req, res) => {
   });
 });
 
-router.post('/create-invoice-link', async (req, res) => {
+router.post('/createInvoice', async (req, res) => {
   const {
     description,
     payload,
     prices
   } = req.body;
 
+  // Validation check for required parameters in the request body
   if (!description || !payload || !prices) {
     return res.status(400).json({ error: "Bad Request: Missing parameters" });
   }
 
+  // Defining bot and provider tokens for communicating with the Telegram API
   const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   const PROVIDER_TOKEN = process.env.PROVIDER_TOKEN;
 
   try {
+    // API call to create an invoice link using provided details and provider token
     const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/createInvoiceLink`, {
       method: 'POST',
       headers: {
@@ -78,6 +81,7 @@ router.post('/create-invoice-link', async (req, res) => {
       return res.status(502).json({ error: "Failed to create invoice link. Please try again later." });
     }
 
+    // Sending JSON response received from Telegram API to the frontend
     res.json(data);
   } catch (error) {
     console.error(error);

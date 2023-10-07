@@ -7,8 +7,8 @@ Venue Explorer Bot is a Telegram Mini App that allows users to explore and find 
 ### Features
 - Explore venues by category
 - View detailed information about each venue
+- Booking Confirmation: After selecting a venue, users can proceed to book it. The Booking Confirmation page displays the details of the booking and provides options for modification and confirmation
 - Mark venues as favorites
-- todo
 
 ## Installation
 
@@ -50,14 +50,43 @@ The configuration contains rules for handling asset requests (such as images, st
 ### User Guide
 - **Exploring Venues:** On the main screen, users will be presented with various venue categories. Click on a category to explore its venues.
 - **Venue Details:** Clicking on a venue will provide detailed information including its rating, amenities, and more.
+- **Booking a Venue:** After exploring a venue, you can proceed to book it by clicking on the "Book Now" button. Follow through the booking process by selecting the desired options and fill in the necessary details.
+- **Booking Confirmation:** Upon reaching the Booking Confirmation page, thoroughly review all your booking details to ensure accuracy. At this stage, you have the option to either modify your booking or confirm it. Once satisfied, proceed to the payment process.
+- **Checkout:** Finalize your booking by proceeding to payment. Use Stripe for payment processing. For testing purposes, you can use Stripe's test cards, such as `4242 4242 4242 4242`. A comprehensive list of test cards is available [here](https://stripe.com/docs/testing#cards).
 - **Favorites:** Heart icon can be clicked to mark/unmark a venue as favorite.
-- todo
 
 ### Developer Guide
 - **Project Structure:** The project is divided into frontend and backend directories, each containing its respective codebase.
 - **State Management:** The app uses Zustand for state management. Refer to store.js in the frontend directory.
-- **APIs:** todo
 - **Components:** Reusable React components are in the components directory of the frontend.
+
+### API Routes
+**Venue Types API Endpoint**
+- Endpoint: `/api/venueTypes`
+- Method: GET
+- Description: Retrieves information about venue categories
+- Payload Example:
+```bash
+{
+    todo
+}
+```
+
+**Venue Details API Endpoint**
+- Endpoint: /api/venues/:id
+- Method: GET
+- Description: Retrieves detailed information about a specific venue based on its ID.
+
+**Create Invoice API Endpoint**
+- Endpoint `/api/createInvoice`
+- Method: POST
+- Description:
+- Payload Example:
+```bash
+{
+  todo
+}
+```
 
 ###  Technology Stack
 The project utilizes a comprehensive set of technologies, libraries, and frameworks to deliver a seamless user experience and maintainable codebase. Here’s a rundown of the technology stack used:
