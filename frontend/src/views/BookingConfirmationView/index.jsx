@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAppStore from '../../store.js';
 import useTelegram from '../../hooks/useTelegram.js';
-import { useMutation } from '@tanstack/react-query';
+import { useInvoiceActions } from '../../hooks/useInvoiceActions.js';
 import { createInvoice } from '../../fetchers/invoiceFetchers.js';
 import ConfirmationHeader from '../../components/layout/BookingConfirmation/ConfirmationHeader';
 import GetawaySnapshot from '../../components/layout/BookingConfirmation/GetawaySnapshot';
 import PriceDetails from '../../components/layout/BookingConfirmation/PriceDetails';
+import { handleInvoiceStatus } from '../../utils/handleInvoiceStatus.js';
+import { VENUE_TYPES } from '../../constants/constants.js';
 import { getDifferenceInDays } from '../../constants/dateUtilities.js';
-import { API_BASE_URL, VENUE_TYPES } from '../../constants/constants.js';
 import './BookingConfirmationView.css';
 
 const BookingConfirmationView = () => {
@@ -17,27 +18,13 @@ const BookingConfirmationView = () => {
   const navigate = useNavigate();
   const { selectedDates, setSelectedDates } = useAppStore();
 
-  const venue = useAppStore(state => state.venues.find(v => v.id.toString() === id)) || {};
   const [guestDetails, setGuestDetails] = useState({ adults: 1, children: 0, pets: 0 });
   const [isEditingGuests, setIsEditingGuests] = useState(false);
   const [isEditingDates, setIsEditingDates] = useState(false);
+  const createInvoiceMutation = useInvoiceActions(createInvoice, WebApp);
+  const venue = useAppStore(state => state.venues.find(v => v.id.toString() === id)) || {};
 
   const isSingleDate = venue.typeId === VENUE_TYPES.AMUSEMENT;
-
-  const createInvoiceMutation = useMutation(createInvoice, {
-    onSuccess: (data) => {
-      // Handle success, for instance, open the invoice link
-      if (data && data.result) {
-        WebApp.openInvoice(data.result);
-      } else {
-        console.error("Failed to retrieve payment link", data);
-      }
-    },
-    onError: (error) => {
-      // Handle error
-      console.error("Error fetching the payment URL:", error);
-    }
-  });
 
   // Dynamically calculate the number of nights and total price
   let numberOfNights = 0;
@@ -65,57 +52,14 @@ const BookingConfirmationView = () => {
         payload: 'Payload',
         prices: [{
           label: "Booking Cost",
-          amount: 10000 // in cents
+          amount: totalPrice * 100 // converting to cents
         }],
         image_url: venue.imageUrl
       });
     };
 
-    // Handler for the event when the invoice UI is closed
-    // Optionally handle different payment statuses: paid, cancelled, failed, pending
     const handleInvoiceClosed = (object) => {
-      let popupParams;
-
-      switch (object.status) {
-        case 'paid':
-          console.log("Payment successful");
-          WebApp.close();
-          break;
-        case 'cancelled':
-          popupParams = {
-            title: "Payment Cancelled",
-            message: "Your booking is not confirmed.",
-            buttons: [{ type: "close" }]
-          };
-          break;
-        case 'failed':
-          popupParams = {
-            title: "Payment Failed",
-            message: "Please try again later.",
-            buttons: [{ type: "close" }]
-          };
-          break;
-        case 'pending':
-          popupParams = {
-            title: "Payment Pending",
-            message: "Payment is pending. We will notify you once the payment is confirmed.",
-            buttons: [{ type: "close" }]
-          };
-          break;
-        default:
-          popupParams = {
-            title: "Unexpected Payment Status",
-            message: "An unexpected status was returned. Please try again later.",
-            buttons: [{ type: "close" }]
-          };
-          break;
-      }
-
-      if (popupParams) {
-        WebApp.showPopup(popupParams, (buttonId) => {
-          console.log(`Popup closed with buttonId: ${buttonId}`);
-        });
-      }
+      handleInvoiceStatus(WebApp, object.status);
     };
 
     const handleBackButtonClick = () => {
