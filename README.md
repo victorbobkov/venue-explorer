@@ -58,6 +58,7 @@ The configuration contains rules for handling asset requests (such as images, st
 ### Developer Guide
 - **Project Structure:** The project is divided into frontend and backend directories, each containing its respective codebase.
 - **State Management:** The app uses Zustand for state management. Refer to store.js in the frontend directory.
+- todo: Views
 - **Components:** Reusable React components are in the components directory of the frontend.
 
 ### API Routes

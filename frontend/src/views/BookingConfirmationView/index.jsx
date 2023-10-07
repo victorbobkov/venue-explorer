@@ -81,27 +81,51 @@ const BookingConfirmationView = () => {
     // Optionally handle different payment statuses: paid, cancelled, failed, pending
     const handleInvoiceClosed = (object) => {
       console.log("Invoice closed event received:", object);
+      let popupParams;
+
       switch (object.status) {
         case 'paid':
           console.log("Payment successful");
-          navigate(`/`);
+          WebApp.close();
           break;
         case 'cancelled':
           console.log("Payment was cancelled");
-          alert("Payment was cancelled. Your booking is not confirmed.");
+          popupParams = {
+            title: "Payment Cancelled",
+            message: "Your booking is not confirmed.",
+            buttons: [{ type: "close" }]
+          };
           break;
         case 'failed':
           console.log("Payment failed");
-          alert("Don’t worry. We will keep your selection.");
+          popupParams = {
+            title: "Payment Failed",
+            message: "Please try again later.",
+            buttons: [{ type: "close" }]
+          };
           break;
         case 'pending':
           console.log("Payment is pending");
-          alert("Payment is pending. We will notify you once the payment is confirmed.");
+          popupParams = {
+            title: "Payment Pending",
+            message: "Payment is pending. We will notify you once the payment is confirmed.",
+            buttons: [{ type: "close" }]
+          };
           break;
         default:
           console.log("Unexpected payment status:", object.status);
-          alert("An unexpected status was returned. Please try again later.");
+          popupParams = {
+            title: "Unexpected Payment Status",
+            message: "An unexpected status was returned. Please try again later.",
+            buttons: [{ type: "close" }]
+          };
           break;
+      }
+
+      if (popupParams) {
+        WebApp.showPopup(popupParams, (buttonId) => {
+          console.log(`Popup closed with buttonId: ${buttonId}`);
+        });
       }
     };
 
