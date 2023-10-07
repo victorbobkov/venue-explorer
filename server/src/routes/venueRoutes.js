@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/database');
-const { bot } = require('../bot.js');
 
 router.get('/venueTypes', (req, res) => {
   db.all('SELECT * FROM venueTypes', [], (err, rows) => {
@@ -38,9 +37,11 @@ router.get('/venues', (req, res) => {
 
 router.post('/createInvoice', async (req, res) => {
   const {
+    title,
     description,
     payload,
-    prices
+    prices,
+    photo_url,
   } = req.body;
 
   // Validation check for required parameters in the request body
@@ -60,21 +61,19 @@ router.post('/createInvoice', async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        title: "Booking",
+        title: title,
         description: description,
         payload: payload,
         provider_token: PROVIDER_TOKEN,
         currency: 'USD',
         prices: prices,
-        // photo_url: 'https://image-url.png',
+        photo_url: photo_url,
         need_name: true,
         need_phone_number: true
       })
     });
 
     const data = await response.json();
-
-    console.log("Telegram API Response:", data);
 
     if (!data.ok) {
       console.error("Telegram API Error:", data.description);
