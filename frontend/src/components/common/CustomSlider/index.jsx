@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 
-const CustomSlider = ({ images }) => {
+const CustomSlider = ({ images, height = '130px', width = '100%' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startX, setStartX] = useState(0);
   const [endX, setEndX] = useState(null);
@@ -61,6 +61,7 @@ const CustomSlider = ({ images }) => {
               alt={`Slide ${index + 1}`}
               className={`slide-image ${imageLoaded ? 'is-loaded' : ''}`}
               onLoad={handleImageLoad}
+              style={{ height, width }}
             />
           ))}
         </div>
@@ -80,6 +81,8 @@ const CustomSlider = ({ images }) => {
 
 CustomSlider.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  height: PropTypes.string,
+  width: PropTypes.string,
 };
 
 export default CustomSlider;

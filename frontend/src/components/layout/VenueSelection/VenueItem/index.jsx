@@ -26,7 +26,7 @@ const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
     <li className="venue">
       <Link to={`/details/${id}`} className="venue__link" aria-label={`Link to ${name} details`}>
         <div className="venue__top">
-          <CustomSlider images={imageUrls} width="100px" />
+          <CustomSlider images={imageUrls} />
           <FavoriteButton isFavorited={isFavorited} onToggleFavorite={handleFavoriteToggle} />
         </div>
         <div className="venue__details">

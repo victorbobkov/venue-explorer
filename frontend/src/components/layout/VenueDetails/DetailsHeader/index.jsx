@@ -6,7 +6,7 @@ import './styles.css';
 const DetailsHeader = ({ venue, isFavorited, onToggleFavorite }) => {
   return (
     <div className="venue-details__top">
-      <CustomSlider images={venue.imageUrls} />
+      <CustomSlider images={venue.imageUrls} height="160px" width="100%" />
       <FavoriteButton
         isFavorited={isFavorited}
         onToggleFavorite={onToggleFavorite}
