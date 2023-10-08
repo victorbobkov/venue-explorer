@@ -15,12 +15,16 @@ const VenueSelectionView = () => {
 
   const { data: venueTypes, isError: isErrorVenueTypes, isLoading: isLoadingVenueTypes } = useQuery(
     ['venueTypes'],
-    fetchVenueTypes
+    fetchVenueTypes, {
+      staleTime: 10 * 60 * 1000 // cache for 10 minutes
+    }
   );
 
   const { data: venues, isError: isErrorVenues, isLoading: isLoadingVenues } = useQuery(
     ['venues'],
-    fetchVenues
+    fetchVenues, {
+      staleTime: 10 * 60 * 1000 // cache for 10 minutes
+    }
   );
 
   useEffect(() => {

@@ -10,15 +10,18 @@ const startBot = () => {
   bot.on('message',  async (msg) => {
     const chatId = msg.chat.id;
 
-    // Send a message with an inline keyboard that contains a web app button
-    await bot.sendMessage(chatId, 'Adventure Awaits! 🌍\n\nTap below and let\'s discover your next charming venue together!', {
-      reply_markup: {
-        inline_keyboard: [
-          [{text: 'Start Booking', web_app: { url: webAppUrl }}],
-        ],
-        resize_keyboard: true,
-      }
-    });
+    // Checking if the message is a regular user message and not a system message
+    if (!msg.successful_payment && !msg.pre_checkout_query) {
+      // Send a message with an inline keyboard that contains a web app button
+      await bot.sendMessage(chatId, 'Adventure Awaits! 🌍\n\nTap below and let\'s discover your next charming venue together!', {
+        reply_markup: {
+          inline_keyboard: [
+            [{text: 'Start Booking', web_app: { url: webAppUrl }}],
+          ],
+          resize_keyboard: true,
+        }
+      });
+    }
   });
 
   // Event listener for pre-checkout queries, an essential step before finalizing payment

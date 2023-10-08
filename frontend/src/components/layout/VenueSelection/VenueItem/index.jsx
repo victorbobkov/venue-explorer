@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import useAppStore from '../../../../store.js';
 import PropTypes from 'prop-types';
+import CustomSlider from '../../../common/CustomSlider';
 import FavoriteButton from '../../../common/FavoriteButton';
 import { VENUE_TYPES } from '../../../../constants/constants.js';
 import './VenueItem.css';
-import CustomSlider from '../../../common/CustomSlider/index.jsx';
 
 const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
