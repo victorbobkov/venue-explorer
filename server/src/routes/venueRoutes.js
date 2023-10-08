@@ -12,26 +12,20 @@ router.get('/venueTypes', (req, res) => {
 });
 
 router.get('/venues', (req, res) => {
-  db.all('SELECT * FROM venues', [], async (err, rows) => {
+  db.all('SELECT * FROM venues', [], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
 
-    // Fetch amenities for each venue
-    const venuesWithAmenities = await Promise.all(rows.map(async venue => {
-      return new Promise((resolve, reject) => {
-        db.all('SELECT amenity FROM amenities WHERE venueId = ?', [venue.id], (err, amenities) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          venue.amenities = amenities.map(a => a.amenity);
-          resolve(venue);
-        });
-      });
-    }));
+    const venuesWithImagesAndAmenities = rows.map(venue => {
+      return {
+        ...venue,
+        imageUrls: JSON.parse(venue.imageUrls),
+        amenities: JSON.parse(venue.amenities),
+      };
+    });
 
-    res.json(venuesWithAmenities);
+    res.json(venuesWithImagesAndAmenities);
   });
 });
 

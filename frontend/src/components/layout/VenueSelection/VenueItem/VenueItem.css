@@ -19,14 +19,6 @@
   position: relative;
 }
 
-.venue__image {
-  display: block;
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
 .venue-details-favorite-btn .favorite-icon {
   width: 30px;
   height: 30px;
@@ -108,3 +100,4 @@
     padding: 5px;
   }
 }
+

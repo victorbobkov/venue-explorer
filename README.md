@@ -60,34 +60,82 @@ The configuration contains rules for handling asset requests (such as images, st
 - **State Management:** The app uses Zustand for state management. Refer to store.js in the frontend directory.
 - todo: Views
 - **Components:** Reusable React components are in the components directory of the frontend.
+- **Mock Data and Database:**
+    - The application uses SQLite for its lightweight, file-based database. The `db.js` file in the backend directory initializes the database and tables, including `venueTypes` and `venues`.
+    - Mock data for the venue types and venues is defined in `constants.js`. This data is parsed and inserted into the SQLite database during initialization (see `db.js` for setup and seeding logic).
+    - Ensure that changes to venue data structure in `constants.js` align with the database schema in `db.js` and vice versa.
+
 
 ### API Routes
 **Venue Types API Endpoint**
 - Endpoint: `/api/venueTypes`
 - Method: GET
-- Description: Retrieves information about venue categories
-- Payload Example:
+- Description: Retrieves information about all available venue categories.
+- Response Example:
 ```bash
-{
-    todo
-}
+[
+    { "id": 1, "type": "Apartment", "iconPath": "/assets/lotties/House.json" },
+    //... other venue types
+]
 ```
 
 **Venue Details API Endpoint**
-- Endpoint: /api/venues/:id
+- Endpoint: /api/venues
 - Method: GET
-- Description: Retrieves detailed information about a specific venue based on its ID.
+- Description: Retrieves detailed information about all venues.
+- Response Example:
+```bash
+[
+    {
+        "id": 1,
+        "name": "Urbanite High-Rise",
+        "typeId": 1,
+        "rating": 4.7,
+        "price": 130,
+        "imageUrls": ["/assets/images/1-1.jpg", "/assets/images/1-2.jpg"],
+        "description": "Modern and chic, located in the heart of the city...",
+        "amenities": ["Free Wi-Fi", "Kitchen"]
+    },
+    //... other venues
+]
+```
 
 **Create Invoice API Endpoint**
 - Endpoint `/api/createInvoice`
 - Method: POST
 - Description:
-- Payload Example:
+- Response Example:
 ```bash
 {
   todo
 }
 ```
+
+### Database Schema 
+
+**venueTypes Table:**
+- `id` (INTEGER) - Unique identifier for each venue type.
+- `type` (TEXT) - The name of the venue type.
+- `iconPath` (TEXT) - Path to the associated icon.
+
+**venues Table:**
+- `id` (INTEGER) - Unique identifier for each venue.
+- `name` (TEXT) - The name of the venue.
+- `typeId` (INTEGER) - ID referencing the venue type.
+- `rating` (REAL) - Rating score for the venue.
+- `price` (INTEGER) - Price per night for the venue.
+- `imageUrls` (TEXT) - JSON string containing URLs of images associated with the venue.
+- `description` (TEXT) - Description of the venue.
+- `amenities` (TEXT) - JSON string containing amenities offered by the venue.
+
+Note: `imageUrls` and `amenities` are stored as JSON-encoded strings and should be parsed to JavaScript objects/arrays when queried.
+
+### Mock Data Usage
+Mock data defined in `constants.js` is utilized to seed the database with initial data for venue types and venues. This allows for consistent testing and development environments across instances of the application.
+- `venueTypes`: Defines various types of venues along with their icon path.
+- `venues`: Contains detailed information about venues including images, pricing, and available amenities.
+
+To modify the mock data, simply update `constants.js` in the backend directory. Ensure any structural changes are reflected in the database schema and API responses.
 
 ###  Technology Stack
 The project utilizes a comprehensive set of technologies, libraries, and frameworks to deliver a seamless user experience and maintainable codebase. Here’s a rundown of the technology stack used:
@@ -95,6 +143,7 @@ The project utilizes a comprehensive set of technologies, libraries, and framewo
 #### Backend
 - **[Node.js](https://nodejs.org/):** Handles the server-side logic of the application.
 - **[Express](https://expressjs.com/):** A minimal and flexible Node.js web application framework that provides robust set of features to develop web and mobile applications.
+- **[SQLite3](https://www.npmjs.com/package/sqlite3):** A C library that provides a lightweight disk-based database. SQLite3 does not require a separate server process and allows access to the database using a nonstandard variant of the SQL query language.
 - **[Dotenv](https://www.npmjs.com/package/dotenv):** A zero-dependency module that loads environment variables from a `.env` file into `process.env`.
 - **[Node-Telegram-Bot-API](https://www.npmjs.com/package/node-telegram-bot-api):** A Node.js module to interact with the official Telegram Bot API.
 
