@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import FavoriteButton from '../../../common/FavoriteButton/index.jsx';
-import './DetailsHeader.css';
+import FavoriteButton from '../../../common/FavoriteButton';
+import CustomSlider from '../../../common/CustomSlider';
+import './styles.css';
 
 const DetailsHeader = ({ venue, isFavorited, onToggleFavorite }) => {
   return (
     <div className="venue-details__top">
-      <img src={venue.imageUrl} alt={`${venue.name} venue`} className="venue-details__image" />
+      <CustomSlider images={venue.imageUrls} />
       <FavoriteButton
         isFavorited={isFavorited}
         onToggleFavorite={onToggleFavorite}
@@ -17,7 +18,7 @@ const DetailsHeader = ({ venue, isFavorited, onToggleFavorite }) => {
 
 DetailsHeader.propTypes = {
   venue: PropTypes.shape({
-    imageUrl: PropTypes.string,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
     name: PropTypes.string,
   }).isRequired,
   isFavorited: PropTypes.bool.isRequired,

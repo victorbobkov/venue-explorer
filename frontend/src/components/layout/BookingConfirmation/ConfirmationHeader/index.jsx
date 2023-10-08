@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import './ConfirmationHeader.css';
+import CustomSlider from '../../../common/CustomSlider/index.jsx';
 
 const ConfirmationHeader = ({ venue }) => {
   return (
     <div className="booking-confirmation__header">
-      <img src={venue.imageUrl} alt={`${venue.name} venue`} className="booking-confirmation__image" />
+      <CustomSlider images={venue.imageUrls} height="150px" width="100%" />
       <div className="booking-confirmation__info">
         <h1 className="booking-confirmation__name">{venue.name}</h1>
         <span className="booking-confirmation__rating">
@@ -17,7 +18,7 @@ const ConfirmationHeader = ({ venue }) => {
 
 ConfirmationHeader.propTypes = {
   venue: PropTypes.shape({
-    imageUrl: PropTypes.string.isRequired,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
     name: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired
   }).isRequired

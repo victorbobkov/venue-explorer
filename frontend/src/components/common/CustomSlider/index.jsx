@@ -6,12 +6,13 @@ const CustomSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startX, setStartX] = useState(0);
   const [endX, setEndX] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
   };
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = () => {
     const diffX = startX - endX;
 
     if (Math.abs(diffX) >= 50) { // Threshold for swipe
@@ -37,6 +38,10 @@ const CustomSlider = ({ images }) => {
     setCurrentIndex(index);
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <div
       className="custom-slider"
@@ -50,10 +55,15 @@ const CustomSlider = ({ images }) => {
           style={{ transform: `translateX(-${currentIndex * 100}%)`, transition: 'transform 0.5s ease-out' }}
         >
           {images.map((img, index) => (
-            <img src={img} key={index} alt={`Slide ${index + 1}`} className="slide-image" />
+            <img
+              src={img}
+              key={index}
+              alt={`Slide ${index + 1}`}
+              className={`slide-image ${imageLoaded ? 'is-loaded' : ''}`}
+              onLoad={handleImageLoad}
+            />
           ))}
         </div>
-
       </div>
       <div className="dots">
         {images.map((_, index) => (
