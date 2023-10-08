@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const TOKEN = process.env.TELEGRAM_BOT_TEST_TOKEN;
+const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const webAppUrl = 'https://venue-explorer.vercel.app/';
 
 // Initialize the Telegram Bot
