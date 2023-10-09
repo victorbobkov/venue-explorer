@@ -10,7 +10,7 @@ const createInvoice = async (invoiceData) => {
       body: JSON.stringify(invoiceData)
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
       console.error("Error: ", response.status, await response.text());
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }

@@ -35,7 +35,13 @@ const BookingConfirmationView = () => {
       ? 1
       : getDifferenceInDays(selectedDates.start, selectedDates.end);
     const pricePerNight = Number(venue.price);
-    totalPrice = numberOfNights * pricePerNight;
+
+    // If the venue is of type AMUSEMENT, calculate price considering number of guests
+    if(venue.typeId === VENUE_TYPES.AMUSEMENT) {
+      totalPrice = numberOfNights * pricePerNight * (guestDetails.adults + guestDetails.children);
+    } else {
+      totalPrice = numberOfNights * pricePerNight;
+    }
   }
 
   // Configure Main Button and Back Button when component mounts and clean up when it unmounts
@@ -94,7 +100,13 @@ const BookingConfirmationView = () => {
         setGuestDetails={setGuestDetails}
         isSingleDate={isSingleDate}
       />
-      <PriceDetails venue={venue} numberOfNights={numberOfNights} totalPrice={totalPrice} />
+      <PriceDetails
+        venue={venue}
+        numberOfNights={numberOfNights}
+        totalPrice={totalPrice}
+        isAmusement={isSingleDate}
+        guestCount={guestDetails.adults + guestDetails.children}
+      />
     </section>
   );
 };

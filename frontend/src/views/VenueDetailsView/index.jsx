@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAppStore from '../../store.js';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import useTelegram from '../../hooks/useTelegram.js';
 import DetailsHeader from '../../components/layout/VenueDetails/DetailsHeader';
 import DetailsInfo from '../../components/layout/VenueDetails/DetailsInfo';
@@ -58,7 +58,7 @@ const VenueDetailsView = () => {
 
   const handleDateChange = (date) => {
     console.log('Selected date: ', format(date, 'yyyy-MM-dd'));
-    setSelectedDates(date, date);
+    setSelectedDates(date, addDays(date, 1)); // Updating end date here as well
   }
 
   const handleDateRangeChange = ({ startDate, endDate }) => {

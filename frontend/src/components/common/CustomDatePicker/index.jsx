@@ -15,7 +15,6 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
     setSelectedEndDate(formatDate(endDate));
   }, [startDate, endDate]);
 
-
   const updateStartDate = (dateStr, date) => {
     setSelectedStartDate(dateStr);
 
@@ -45,7 +44,13 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
   const handleStartDateChange = (e) => {
     const dateStr = e.target.value;
     const date = parseDate(dateStr);
-    isSingleDate ? onDateChange(date) : updateStartDate(dateStr, date);
+    if (isSingleDate) {
+      // Update both start and end date when it's single date selection
+      onDateChange(date);
+      onDateRangeChange({ startDate: date, endDate: addDays(date, 1) });
+    } else {
+      updateStartDate(dateStr, date);
+    }
   };
 
   const handleEndDateChange = (e) => {
@@ -53,12 +58,6 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
     const date = parseDate(dateStr);
     updateEndDate(dateStr, date);
   };
-
-  useEffect(() => {
-    console.log("Current Start Date:", selectedStartDate);
-    console.log("Current End Date:", selectedEndDate);
-  }, [selectedStartDate, selectedEndDate]);
-
 
   return (
     <div className="venue-details__booking">
