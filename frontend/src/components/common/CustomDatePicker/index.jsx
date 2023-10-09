@@ -59,6 +59,12 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
     updateEndDate(dateStr, date);
   };
 
+  const oneMonthLater = (date) => {
+    const result = new Date(date);
+    result.setMonth(result.getMonth() + 1);
+    return result;
+  };
+
   return (
     <div className="venue-details__booking">
       <label className="venue-details__label">
@@ -82,6 +88,7 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
               ? formatDate(new Date())
               : formatDate(addDays(parseDate(selectedStartDate), 1))
             }
+            max={formatDate(oneMonthLater(parseDate(selectedStartDate)))}
             onChange={handleEndDateChange}
           />
         </label>

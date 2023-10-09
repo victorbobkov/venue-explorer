@@ -12,7 +12,6 @@ const FavoriteButton = ({ isFavorited, onToggleFavorite, className = '' }) => {
       <img
         src={isFavorited ? "/assets/icons/icons8-red-heart-50.png" : "/assets/icons/icons8-heart-50.png"}
         alt="Add to favorite icon"
-        // className={`venue-details__favorite-icon ${isFavorited ? 'favorited' : ''}`}
         className="favorite-icon"
       />
     </button>

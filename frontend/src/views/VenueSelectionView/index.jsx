@@ -67,7 +67,7 @@ const VenueSelectionView = () => {
   }, [WebApp, onToggleMainButton]);
 
   if (isLoadingVenueTypes || isLoadingVenues) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (isErrorVenueTypes || isErrorVenues) {

@@ -38,13 +38,6 @@ npm install
 npm run dev
 ```
 
-#### Deployment Configuration (vercel.json)
-When deploying to Vercel, a `vercel.json` configuration file is used to manage the routing behaviors and other deployment settings for the project.
-
-The provided configuration in this project primarily ensures that the SPA routes correctly, addressing a known issue where reloading on a subroute would result in a 404 error.
-
-The configuration contains rules for handling asset requests (such as images, stylesheets, and scripts), directing them to their corresponding resources, and any other path is directed to the `index.html` file, allowing the React router to handle the route client-side. This resolves the reloading error on subroutes by always serving the `index.html` on any path and can influence performance due to client-side routing and handling.
-
 ## Usage
 
 ### User Guide
@@ -157,9 +150,6 @@ The project utilizes a comprehensive set of technologies, libraries, and framewo
 
 #### Hosting
 - **[Vercel](https://vercel.com/):** Enables deployment of the frontend, providing an efficient, scalable, and intuitive cloud platform for static sites.
-
-#### Other
-- todo
 
 ### Contributing
 Whether it's improving code quality, adding new features, or reporting bugs, contributions to this project are welcomed and appreciated.

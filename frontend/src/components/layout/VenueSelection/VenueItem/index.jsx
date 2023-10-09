@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useAppStore from '../../../../store.js';
 import PropTypes from 'prop-types';
@@ -6,14 +6,33 @@ import CustomSlider from '../../../common/CustomSlider';
 import FavoriteButton from '../../../common/FavoriteButton';
 import { VENUE_TYPES } from '../../../../constants/constants.js';
 import './VenueItem.css';
+import useTelegram from '../../../../hooks/useTelegram.js';
 
 const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
   const venueTypes = useAppStore((state) => state.venueTypes);
+  const { WebApp } = useTelegram();
 
   const type = venueTypes.find((t) => t.id === typeId);
   const typeName = type ? type.type : 'Unknown Type';
+
+  useEffect(() => {
+    // Fetch favorite status from Cloud Storage
+    if (WebApp.isVersionAtLeast('6.9')) {
+      WebApp.CloudStorage.getItem(`favorite_${id}`, (err, value) => {
+        if (err) {
+          console.error("Error fetching from cloud storage", err);
+        } else if (value !== null) {
+          // Update the favorite status in the state
+          const storedFavorited = JSON.parse(value);
+          if (storedFavorited !== isFavorited) {
+            toggleFavorite(id);
+          }
+        }
+      });
+    }
+  }, [id, isFavorited, toggleFavorite]);
 
   // Callback to handle favorite toggle
   const handleFavoriteToggle = useCallback((event) => {

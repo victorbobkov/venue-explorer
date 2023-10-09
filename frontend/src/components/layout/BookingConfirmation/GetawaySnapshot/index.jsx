@@ -47,9 +47,17 @@ const GetawaySnapshot = ({
 
   let formattedDates;
   if (selectedDates.start && selectedDates.end) {
-    isSingleDate
-      ? formattedDates = `${format(selectedDates.start, 'MMM d')}`
-      : formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'd')}`;
+    if (isSingleDate) {
+      formattedDates = `${format(selectedDates.start, 'MMM d')}`;
+    } else {
+      // Check if start and end dates are in the same month
+      if (selectedDates.start.getMonth() === selectedDates.end.getMonth()) {
+        formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'd')}`;
+      } else {
+        // If different months, show month for both dates
+        formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'MMM d')}`;
+      }
+    }
   } else {
     formattedDates = "Dates not selected";
   }
