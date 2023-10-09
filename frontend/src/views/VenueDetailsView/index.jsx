@@ -57,7 +57,8 @@ const VenueDetailsView = () => {
   }, [WebApp, navigate]);
 
   const handleDateChange = (date) => {
-    console.log('Selected date: ', format(date, 'yyyy-MM-dd'))
+    console.log('Selected date: ', format(date, 'yyyy-MM-dd'));
+    setSelectedDates(date, date);
   }
 
   const handleDateRangeChange = ({ startDate, endDate }) => {
@@ -80,7 +81,7 @@ const VenueDetailsView = () => {
         onDateChange={handleDateChange}
         onDateRangeChange={handleDateRangeChange}
       />
-      {/*<button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>*/}
+      <button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>
     </section>
   );
 };

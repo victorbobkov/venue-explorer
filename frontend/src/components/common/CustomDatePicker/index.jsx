@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDate, parseDate, addDays } from '../../../constants/dateUtilities';
 import './CustomDatePicker.css';
@@ -8,6 +8,13 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
   const [selectedStartDate, setSelectedStartDate] = useState(formatDate(startDate));
   const [selectedEndDate, setSelectedEndDate] = useState(formatDate(endDate));
   const today = new Date();
+
+  useEffect(() => {
+    console.log("Updated Date Props: ", startDate, endDate);
+    setSelectedStartDate(formatDate(startDate));
+    setSelectedEndDate(formatDate(endDate));
+  }, [startDate, endDate]);
+
 
   const updateStartDate = (dateStr, date) => {
     setSelectedStartDate(dateStr);
@@ -46,6 +53,12 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
     const date = parseDate(dateStr);
     updateEndDate(dateStr, date);
   };
+
+  useEffect(() => {
+    console.log("Current Start Date:", selectedStartDate);
+    console.log("Current End Date:", selectedEndDate);
+  }, [selectedStartDate, selectedEndDate]);
+
 
   return (
     <div className="venue-details__booking">

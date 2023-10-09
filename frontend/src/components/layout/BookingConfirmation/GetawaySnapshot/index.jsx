@@ -47,7 +47,9 @@ const GetawaySnapshot = ({
 
   let formattedDates;
   if (selectedDates.start && selectedDates.end) {
-    formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'd')}`;
+    isSingleDate
+      ? formattedDates = `${format(selectedDates.start, 'MMM d')}`
+      : formattedDates = `${format(selectedDates.start, 'MMM d')} - ${format(selectedDates.end, 'd')}`;
   } else {
     formattedDates = "Dates not selected";
   }
