@@ -15,10 +15,6 @@ const useAppStore = create((set) => ({
   setSelectedType: (type) => set({ selectedType: type }),
 
   favorites: {},
-  // toggleFavorite: (id) => set((state) => {
-  //   const isFavorited = !!state.favorites[id];
-  //   return { favorites: { ...state.favorites, [id]: !isFavorited } };
-  // }),
   toggleFavorite: (id) => set((state) => {
     const isFavorited = !!state.favorites[id];
     const newFavorites = { ...state.favorites, [id]: !isFavorited };

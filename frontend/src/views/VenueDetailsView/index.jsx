@@ -81,7 +81,7 @@ const VenueDetailsView = () => {
         onDateChange={handleDateChange}
         onDateRangeChange={handleDateRangeChange}
       />
-      <button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>
+      {/*<button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>*/}
     </section>
   );
 };
