@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useAppStore from '../../../../store.js';
 import PropTypes from 'prop-types';
@@ -13,6 +13,7 @@ const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
   const venueTypes = useAppStore((state) => state.venueTypes);
   const { WebApp } = useTelegram();
+  const lastToggledRef = useRef(null);
 
   const type = venueTypes.find((t) => t.id === typeId);
   const typeName = type ? type.type : 'Unknown Type';
@@ -24,9 +25,11 @@ const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
         if (err) {
           console.error("Error fetching from cloud storage", err);
         } else if (value !== null) {
-          // Update the favorite status in the state
           const storedFavorited = JSON.parse(value);
-          if (storedFavorited !== isFavorited) {
+          const now = Date.now();
+          const timeSinceLastToggle = now - (lastToggledRef.current || 0);
+
+          if (storedFavorited !== isFavorited && timeSinceLastToggle > 2000) {
             toggleFavorite(id);
           }
         }
@@ -38,6 +41,7 @@ const VenueItem = ({ id, name, typeId, rating, price, imageUrls = [] }) => {
   const handleFavoriteToggle = useCallback((event) => {
     event.preventDefault();
     event.stopPropagation();
+    lastToggledRef.current = Date.now();
     toggleFavorite(id);
   }, [toggleFavorite, id]);
 

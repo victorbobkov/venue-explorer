@@ -19,19 +19,17 @@ const useAppStore = create((set) => ({
     const isFavorited = !!state.favorites[id];
     const newFavorites = { ...state.favorites, [id]: !isFavorited };
 
-    // Optimistically update the state
-    set({ favorites: newFavorites });
-
     // Save to Cloud Storage
     if (window.Telegram.WebApp.isVersionAtLeast('6.9')) {
       window.Telegram.WebApp.CloudStorage.setItem(`favorite_${id}`, JSON.stringify(!isFavorited), (err, success) => {
         if (err) {
           console.error("Error saving to cloud storage", err);
-          // Revert the state in case of an error
           set({ favorites: { ...state.favorites, [id]: isFavorited } });
         }
       });
     }
+
+    return { favorites: newFavorites };
   }),
 
   selectedDates: { start: today, end: tomorrow },
