@@ -79,7 +79,7 @@ const BookingConfirmationView = () => {
           label: "Booking Cost",
           amount: totalPrice * 100 // converting to cents
         }],
-        image_url: venue.imageUrls[0]
+        photo_url: venue.imageUrls[0]
       });
     };
 
@@ -103,7 +103,7 @@ const BookingConfirmationView = () => {
       WebApp.BackButton.offClick(handleBackButtonClick);
       WebApp.offEvent('invoiceClosed', handleInvoiceClosed);
     }
-  }, [WebApp, navigate, totalPrice, createInvoiceMutation, venue]);
+  }, [WebApp, navigate, totalPrice]);
 
   return (
     <section className="booking-confirmation">
