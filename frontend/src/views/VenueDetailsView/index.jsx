@@ -9,6 +9,8 @@ import './VenueDetailsView.css';
 
 // Component renders detailed information about a specific venue
 const VenueDetailsView = () => {
+  console.log('VenueDetailsView rendered');
+
   const { selectedDates, setSelectedDates } = useAppStore();
   const { id } = useParams();
   const { WebApp } = useTelegram();

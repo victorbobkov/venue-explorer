@@ -32,15 +32,8 @@
   transition: background-color 0.3s ease;
 }
 
-/*.booking-confirmation__price-normal {*/
-/*  color: var(--tg-theme-hint-color);*/
-/*}*/
 
 .booking-confirmation__price-label {
   color: var(--tg-theme-text-color);
   font-weight: bold;
-}
-
-.booking-confirmation__price-value {
-  color: var(--tg-theme-text-color);
 }
