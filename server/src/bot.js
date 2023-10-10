@@ -40,7 +40,7 @@ const startBot = () => {
 
   // Event listener for successful payment, for additional processing or sending a thank-you message
   bot.on('successful_payment', (message) => {
-    bot.sendMessage(message.chat.id, "Thank you for your payment!");
+    bot.sendMessage(message.chat.id, "Hooray! Your 'payment' is complete! But don't worry, your imaginary credit card wasn't charged. Your fictional booking is all set.");
   });
 
   console.log('Bot is running...')
