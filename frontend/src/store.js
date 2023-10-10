@@ -24,6 +24,7 @@ const useAppStore = create((set) => ({
       window.Telegram.WebApp.CloudStorage.setItem(`favorite_${id}`, JSON.stringify(!isFavorited), (err, success) => {
         if (err) {
           console.error("Error saving to cloud storage", err);
+          set({ favorites: { ...state.favorites, [id]: isFavorited } });
         }
       });
     }
