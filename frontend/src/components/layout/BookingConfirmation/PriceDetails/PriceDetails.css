@@ -11,10 +11,14 @@
   font-size: 22px;
 }
 
-.booking-confirmation__item {
+.booking-confirmation__item, .booking-confirmation__item-hint {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.booking-confirmation__item-hint{
+  color: var(--tg-theme-hint-color);
 }
 
 .booking-confirmation__item--button {
@@ -28,9 +32,9 @@
   transition: background-color 0.3s ease;
 }
 
-.booking-confirmation__price-normal {
-  color: var(--tg-theme-hint-color);
-}
+/*.booking-confirmation__price-normal {*/
+/*  color: var(--tg-theme-hint-color);*/
+/*}*/
 
 .booking-confirmation__price-label {
   color: var(--tg-theme-text-color);

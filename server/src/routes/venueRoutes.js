@@ -61,7 +61,6 @@ router.post('/createInvoice', async (req, res) => {
         provider_token: PROVIDER_TOKEN,
         currency: 'USD',
         prices: prices,
-        photo_url: photo_url,
         need_name: true,
         need_phone_number: true
       })

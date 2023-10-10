@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import FavoriteButton from '../../../common/FavoriteButton';
 import CustomSlider from '../../../common/CustomSlider';
-import './styles.css';
+import './DetailsHeader.css';
 
 const DetailsHeader = ({ venue, isFavorited, onToggleFavorite }) => {
   return (

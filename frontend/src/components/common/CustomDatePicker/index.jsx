@@ -10,7 +10,6 @@ const CustomDatePicker = ({ isSingleDate, onDateChange, onDateRangeChange, start
   const today = new Date();
 
   useEffect(() => {
-    console.log("Updated Date Props: ", startDate, endDate);
     setSelectedStartDate(formatDate(startDate));
     setSelectedEndDate(formatDate(endDate));
   }, [startDate, endDate]);

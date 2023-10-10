@@ -7,7 +7,7 @@ const PriceDetails = ({ venue, numberOfNights, totalPrice, isAmusement, guestCou
       <h2 className="booking-confirmation__price-details--header">
         Price Details
       </h2>
-      <div className="booking-confirmation__item">
+      <div className="booking-confirmation__item-hint">
         {isAmusement ? (
           <>
             <span className="booking-confirmation__price-normal">

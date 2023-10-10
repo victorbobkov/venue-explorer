@@ -27,24 +27,7 @@ const BookingConfirmationView = () => {
   const isSingleDate = venue.typeId === VENUE_TYPES.AMUSEMENT;
 
   // Dynamically calculate the number of nights and total price
-  let numberOfNights = 0;
-  // let totalPrice = 0;
-
-  // if (selectedDates.start && selectedDates.end && venue.price != null) {
-  //   numberOfNights = venue.typeId === VENUE_TYPES.AMUSEMENT
-  //     ? 1
-  //     : getDifferenceInDays(selectedDates.start, selectedDates.end);
-  //   const pricePerNight = Number(venue.price);
-  //
-  //   // If the venue is of type AMUSEMENT, calculate price considering number of guests
-  //   if(venue.typeId === VENUE_TYPES.AMUSEMENT) {
-  //     totalPrice = numberOfNights * pricePerNight * (guestDetails.adults + guestDetails.children);
-  //   } else {
-  //     totalPrice = numberOfNights * pricePerNight;
-  //   }
-  // }
-
-  //...
+  const [numberOfNights, setNumberOfNights] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -53,6 +36,8 @@ const BookingConfirmationView = () => {
         ? 1
         : getDifferenceInDays(selectedDates.start, selectedDates.end);
       const pricePerNight = Number(venue.price);
+
+      setNumberOfNights(numOfNights);
 
       if(venue.typeId === VENUE_TYPES.AMUSEMENT) {
         setTotalPrice(numOfNights * pricePerNight * (guestDetails.adults + guestDetails.children));
@@ -79,7 +64,6 @@ const BookingConfirmationView = () => {
           label: "Booking Cost",
           amount: totalPrice * 100 // converting to cents
         }],
-        photo_url: venue.imageUrls[0]
       });
     };
 

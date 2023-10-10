@@ -5,10 +5,10 @@
 Venue Explorer Bot is a Telegram Mini App that allows users to explore and find venues based on different categories. Users can view details about the venues and mark their favorite ones. The project is developed as part of Telegram's Mini App development contest and serves as a reusable example for future Mini App developers.
 
 ### Features
-- Explore venues by category
-- View detailed information about each venue
-- Booking Confirmation: After selecting a venue, users can proceed to book it. The Booking Confirmation page displays the details of the booking and provides options for modification and confirmation
-- Mark venues as favorites
+- **Explore Venues:** Browse through various venue categories.
+- **View Venue Details:** Access comprehensive information about each venue.
+- **Book Venues:** Select, modify, and confirm your booking in a few steps.
+- **Mark Favorites:** Save venues to your favorites with a single click.
 
 ## Installation
 
@@ -30,6 +30,13 @@ npm install
 npm start
 ```
 
+Create a `.env` file to store your environment variables:
+```bash
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+SERVER_URL=your_server_url
+PROVIDER_TOKEN=your_provider_token // Payment provider token obtained via BotFather.
+```
+
 ### Frontend Setup
 Similarly, for the frontend:
 ```bash
@@ -38,26 +45,32 @@ npm install
 npm run dev
 ```
 
+Create a `.env.development` file to store your environment variables for development:
+```bash
+VITE_APP_API_BASE_URL=http://localhost:80/api
+```
+Ensure to replace `http://localhost:80/api` with the actual API base URL you intend to use during development. In Vite, variables in `.env` files must be prefixed with `VITE_APP_` to be exposed to your application code.
+
 ## Usage
 
 ### User Guide
 - **Exploring Venues:** On the main screen, users will be presented with various venue categories. Click on a category to explore its venues.
 - **Venue Details:** Clicking on a venue will provide detailed information including its rating, amenities, and more.
-- **Booking a Venue:** After exploring a venue, you can proceed to book it by clicking on the "Book Now" button. Follow through the booking process by selecting the desired options and fill in the necessary details.
 - **Booking Confirmation:** Upon reaching the Booking Confirmation page, thoroughly review all your booking details to ensure accuracy. At this stage, you have the option to either modify your booking or confirm it. Once satisfied, proceed to the payment process.
-- **Checkout:** Finalize your booking by proceeding to payment. Use Stripe for payment processing. For testing purposes, you can use Stripe's test cards, such as `4242 4242 4242 4242`. A comprehensive list of test cards is available [here](https://stripe.com/docs/testing#cards).
+- **Checkout:** Finalize your booking by proceeding to payment. Stripe Test Provider is used for payment processing. You can use Stripe's test cards, such as `4242 4242 4242 4242`. A comprehensive list of test cards is available [here](https://stripe.com/docs/testing#cards).
 - **Favorites:** Heart icon can be clicked to mark/unmark a venue as favorite.
 
 ### Developer Guide
 - **Project Structure:** The project is divided into frontend and backend directories, each containing its respective codebase.
-- **State Management:** The app uses Zustand for state management. Refer to store.js in the frontend directory.
-- todo: Views
+- **State Management:**
+  - **Zustand:** The app uses Zustand for state management. Refer to store.js in the frontend directory.
+  - **React-Query:** This tool is used for fetching, caching and updating data. The fetch functions are defined in the `fetchers` directory.
+- **Page Structure:** The primary pages/screens of the app are housed in the "views" directory. Every view corresponds to specific components, which are organized within the `components/layout` directory.
 - **Components:** Reusable React components are in the components directory of the frontend.
 - **Mock Data and Database:**
     - The application uses SQLite for its lightweight, file-based database. The `db.js` file in the backend directory initializes the database and tables, including `venueTypes` and `venues`.
     - Mock data for the venue types and venues is defined in `constants.js`. This data is parsed and inserted into the SQLite database during initialization (see `db.js` for setup and seeding logic).
     - Ensure that changes to venue data structure in `constants.js` align with the database schema in `db.js` and vice versa.
-
 
 ### API Routes
 **Venue Types API Endpoint**
@@ -73,7 +86,7 @@ npm run dev
 ```
 
 **Venue Details API Endpoint**
-- Endpoint: /api/venues
+- Endpoint: `/api/venues`
 - Method: GET
 - Description: Retrieves detailed information about all venues.
 - Response Example:
@@ -96,13 +109,7 @@ npm run dev
 **Create Invoice API Endpoint**
 - Endpoint `/api/createInvoice`
 - Method: POST
-- Description:
-- Response Example:
-```bash
-{
-  todo
-}
-```
+- Description: This endpoint facilitates the creation of an invoice link via interaction with the Telegram API. When a POST request is made, the API takes the provided invoice details (such as title, description, prices, etc.) and communicates with the Telegram API to generate an invoice link.
 
 ### Database Schema 
 
@@ -143,13 +150,15 @@ The project utilizes a comprehensive set of technologies, libraries, and framewo
 #### Frontend
 - **[React](https://reactjs.org/):** A JavaScript library for building user interfaces.
 - **[Zustand](https://github.com/pmndrs/zustand):** A small, fast, and scalable bearbones state-management solution.
+- **[React Query (@tanstack/react-query)](https://tanstack.com/query/latest):** A library for fetching, caching, and updating asynchronous data in React.
 - **[Lottie-web](https://github.com/airbnb/lottie-web):** Renders Adobe After Effects animations that have been exported as JSON.
 - **[React Router Dom](https://reactrouter.com/web/guides/quick-start):** The standard library for routing in React. It enables the navigation among views of various components in a React App, allows changing the browser URL, and keeps UI in sync with the URL.
 - **[Date-fns](https://date-fns.org/):** Modern JavaScript date utility library.
 - **[Prop-types](https://www.npmjs.com/package/prop-types):** Runtime type checking for React props and similar objects.
 
 #### Hosting
-- **[Vercel](https://vercel.com/):** Enables deployment of the frontend, providing an efficient, scalable, and intuitive cloud platform for static sites.
+- **[Vercel](https://vercel.com/):** The frontend of the application is deployed using Vercel.
+- **[DigitalOcean](https://www.digitalocean.com/):** The backend of the application is hosted on DigitalOcean.
 
 ### Contributing
 Whether it's improving code quality, adding new features, or reporting bugs, contributions to this project are welcomed and appreciated.

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAppStore from '../../store.js';
-import { addDays, format } from 'date-fns';
+import { addDays } from 'date-fns';
 import useTelegram from '../../hooks/useTelegram.js';
 import DetailsHeader from '../../components/layout/VenueDetails/DetailsHeader';
 import DetailsInfo from '../../components/layout/VenueDetails/DetailsInfo';
@@ -18,6 +18,12 @@ const VenueDetailsView = () => {
   const venue = useAppStore((state) => state.venues.find((v) => v.id.toString() === id) || {});
   const isFavorited = useAppStore((state) => !!state.favorites[id]);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
+
+  useEffect(() => {
+    if (!venue.id) {
+      navigate('/', { replace: true });
+    }
+  }, [venue, navigate]);
 
   // Find corresponding type name
   const type = venueTypes.find((t) => t.id === venue.typeId);
@@ -57,12 +63,10 @@ const VenueDetailsView = () => {
   }, [WebApp, navigate]);
 
   const handleDateChange = (date) => {
-    console.log('Selected date: ', format(date, 'yyyy-MM-dd'));
-    setSelectedDates(date, addDays(date, 1)); // Updating end date here as well
+    setSelectedDates(date, addDays(date, 1));
   }
 
   const handleDateRangeChange = ({ startDate, endDate }) => {
-    console.log('Selected date range: ', format(startDate, 'yyyy-MM-dd'), 'to', format(endDate, 'yyyy-MM-dd'));
     setSelectedDates(startDate, endDate);
   };
 
@@ -81,7 +85,6 @@ const VenueDetailsView = () => {
         onDateChange={handleDateChange}
         onDateRangeChange={handleDateRangeChange}
       />
-      {/*<button onClick={() => navigate(`/booking-confirmation/${id}`)}>test</button>*/}
     </section>
   );
 };

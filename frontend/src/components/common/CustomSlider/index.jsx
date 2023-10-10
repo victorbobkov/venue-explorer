@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
+import './CustomSlider.css';
 
 const CustomSlider = ({ images, height = '130px', width = '100%' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
